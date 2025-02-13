@@ -1,17 +1,19 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { PageHeader } from '../components/PageHeader/PageHeader';
+import { ThemeProvider } from '../components/ThemeProvider/ThemeProvider';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Текст писать тут
-        </p>
-      </header>
-    </div>
+    <ThemeProvider>
+      <PageHeader></PageHeader>
+      <div>
+        <header>
+          <p>Текст писать тут</p>
+        </header>
+      </div>
+    </ThemeProvider>
   );
 }
 

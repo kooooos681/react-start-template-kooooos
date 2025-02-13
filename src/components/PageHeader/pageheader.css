@@ -1,0 +1,21 @@
+.customButton {
+    width: 150px;
+    height: 50px;
+    letter-spacing: 0.5px;
+    background-color: #E0314B;
+    font-size: 32px;
+    border: 1.5px solid #E0314B;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    background: lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
