@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { ItemList } from '../ItemList/ItemList';
 import { ShortItemProps } from '../ShortProductCard/ShortProductCard';
-import logo from './img.png';
 
 function generateUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -11,9 +10,11 @@ function generateUUID() {
   });
 }
 
+const pathLogo = require('./favicon.svg');
+
 export const generateRandomItem = (): ShortItemProps => ({
   id: generateUUID(),
-  img: logo,
+  img: pathLogo,
   name: 'Товар ' + Math.floor(Math.random() * 100),
   price: Math.random() * 1000,
   description: 'test',

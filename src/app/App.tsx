@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import '../i18n/config';
 import { PageHeader } from '../components/PageHeader/PageHeader';
-import { ItemList } from '../components/ItemList/ItemList';
+import { ItemListDemoButton } from 'src/components/ItemList_Demo/ItemList_Demo_Button';
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
           <p>Текст писать тут</p>
         </header>
       </div>
+      <ItemListDemoButton />
     </>
   );
 }
