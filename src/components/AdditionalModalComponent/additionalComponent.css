@@ -8,8 +8,9 @@
     flex-direction: column;
 }
 
-input {
-    width: 150px;
+.input-style {
+    width: 250px;
+    margin: 5px;
 }
 
 .button {

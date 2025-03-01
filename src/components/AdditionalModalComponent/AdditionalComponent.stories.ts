@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { AdditionalComponent } from './AdditionalComponent';
 
 const meta: Meta<typeof AdditionalComponent> = {
-  title: 'AdditionalComponent',
+  title: 'AdditionalModalComponent',
   component: AdditionalComponent,
 };
 

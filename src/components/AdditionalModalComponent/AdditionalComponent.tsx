@@ -18,7 +18,7 @@ export function AdditionalComponent({ }: AdditionalComponentProps) {
   
   return (
     <div className="div-center">
-      <input type="text" onChange={(e) => setText(e.target.value)}></input>
+      <input className='input-style' type="text" onChange={(e) => setText(e.target.value)}></input>
       <button onClick={handleOpen}>Показать модальное окно</button>
       <AdditionalModal isOpen={isModalOpen} onClose={handleClose} text={text}></AdditionalModal>
     </div>
