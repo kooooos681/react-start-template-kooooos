@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from "react";
 export type Theme = 'light' | 'dark';
 type ThemeContext = { theme: Theme; toggleTheme: () => void };
 
@@ -12,14 +12,18 @@ export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setTheme] = useState<Theme>('light');
+  const [containerStyle, setContainerStyle] = useState<React.CSSProperties>({});
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? null : 'light');
+    setTheme(theme === 'light' ? 'dark' : 'light');
     console.log(theme);
   };
 
-  const containerStyle = useMemo(() => {
-    return { background: theme === 'light' ? '#000' : '#fff' };
+  useEffect(() => {
+    setContainerStyle({
+      background: theme === 'light' ? '#000' : '#fff',
+      color: theme === 'light' ? '#fff' : '#000',
+    });
   }, [theme]);
 
   return (
