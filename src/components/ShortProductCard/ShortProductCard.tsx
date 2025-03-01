@@ -1,20 +1,22 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import './shortproductcard.css';
-//import logo from './img.png';
 import { BasketButton } from '../BasketButton/BasketButton';
 
 export interface ShortItemProps {
   id: string;
-  img?: string;
+  img: string;
   price: number;
   name: string;
   description: string;
-  count: number; 
+  count: number;
 }
 
-export const ShortProductCard = ( shortItemProps : ShortItemProps) => {
+export const ShortProductCard = (shortItemProps: ShortItemProps) => {
   return (
     <div className="short-product-card-row-wrapper">
+      <div className="logo">
+        <img className="img" src={shortItemProps.img} alt="fireSpot" />
+      </div>
       <div className="name">
         <h1>{shortItemProps.name}</h1>
       </div>

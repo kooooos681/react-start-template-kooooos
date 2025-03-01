@@ -8,10 +8,10 @@ export const LanguageSwitcher = () => {
 
   return (
     <div>
-        <label>{t('langSwitcherCaption')}</label>
-    <button className="customButton" onClick={toggleLanguage}>
-            {t('langSwitcherText')}
-        </button>
+      <label>{t('langSwitcherCaption')}</label>
+      <button className="customButton" onClick={toggleLanguage}>
+        {t('langSwitcherText')}
+      </button>
     </div>
   );
 };
