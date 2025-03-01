@@ -14,42 +14,14 @@ export const generateRandomItem = (): ShortItemProps => ({
 
 // Компонент списка товаров
 export const ItemListDemo: React.FC = () => {
-  const [items, setItems] = useState<ShortItemProps[]>(Array.from({ length: 10 }, generateRandomItem));
-  // const [modalItem, setModalItem] = useState<ShortItemProps | null>(null);
-  const observerRef = useRef<HTMLDivElement | null>(null);
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         setItems((prev) => [...prev, ...Array.from({ length: 5 }, generateRandomItem)]);
-  //       }
-  //     },
-  //     { threshold: 1 }
-  //   );
-  //   if (observerRef.current) {
-  //     observer.observe(observerRef.current);
-  //   }
-  //   return () => observer.disconnect();
-  // }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setItems((prev) => [...prev, ...Array.from({ length: 5 }, generateRandomItem)]);
-        }
-      },
-      { threshold: 1 }
-    );
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-    return () => observer.disconnect();
-  }, []);
-
+  const addRandomItem = () => {
+    //addItem(generateRandomItem());
+  }
 
   return (
     <>
+    <button >test button33</button>
     <ItemList></ItemList>
     </>
   );

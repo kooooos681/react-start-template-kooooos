@@ -22,7 +22,7 @@ export function BasketButton({ primary = false, size = 'medium', backgroundColor
   return (
     <>
       <button>-</button>
-      <input value={props.count}></input>
+      <input value={props.count} readOnly></input>
       <button>+</button>
     </>
   );
