@@ -5,11 +5,9 @@ import { ThemeSwitcher } from '../Switchers/ThemeSwitcher';
 
 export const PageHeader = () => {
   return (
-    <>
-      <div className="header">
-        <ThemeSwitcher></ThemeSwitcher>
-        <LanguageSwitcher></LanguageSwitcher>
-      </div>
-    </>
+    <div className="header">
+      <ThemeSwitcher></ThemeSwitcher>
+      <LanguageSwitcher></LanguageSwitcher>
+    </div>
   );
 };

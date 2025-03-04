@@ -1,13 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './additionalComponent.css';
 import AdditionalModal from './AdditionalModal/AdditionalModal';
 
-interface AdditionalComponentProps {
-}
-
-export function AdditionalComponent({ }: AdditionalComponentProps) {
-  const [text, setText] = useState("");
+export function AdditionalComponent() {
+  const [text, setText] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => {
     setIsModalOpen(true);
@@ -15,10 +11,10 @@ export function AdditionalComponent({ }: AdditionalComponentProps) {
   const handleClose = () => {
     setIsModalOpen(false);
   };
-  
+
   return (
     <div className="div-center">
-      <input className='input-style' type="text" onChange={(e) => setText(e.target.value)}></input>
+      <input className="input-style" type="text" onChange={(e) => setText(e.target.value)}></input>
       <button onClick={handleOpen}>Показать модальное окно</button>
       <AdditionalModal isOpen={isModalOpen} onClose={handleClose} text={text}></AdditionalModal>
     </div>
