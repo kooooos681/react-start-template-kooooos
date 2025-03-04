@@ -8,10 +8,10 @@ export const ThemeSwitcher = () => {
 
   return (
     <div>
-        <label>{t('themeSwitcherCaption')}</label>
-        <button className="customButton" onClick={toggleTheme}>
-          {theme === 'light' ? t('themeLight') : t('themeDark')}
-        </button>
+      <label>{t('themeSwitcherCaption')}</label>
+      <button className="customButton" onClick={toggleTheme}>
+        {theme === 'light' ? t('themeLight') : t('themeDark')}
+      </button>
     </div>
   );
 };

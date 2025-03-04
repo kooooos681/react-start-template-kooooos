@@ -1,9 +1,9 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import './shortproductcard.css';
-import logo from './img.png';
 import { BasketButton } from '../BasketButton/BasketButton';
 
-interface IModalProps {
+export interface ShortItemProps {
+  id: string;
   img: string;
   price: number;
   name: string;
@@ -11,23 +11,23 @@ interface IModalProps {
   count: number;
 }
 
-export const ShortProductCard = ({ img, price, name, description, count }: PropsWithChildren<IModalProps>) => {
+export const ShortProductCard = (shortItemProps: ShortItemProps) => {
   return (
     <div className="short-product-card-row-wrapper">
       <div className="logo">
-        <img className="img" src={logo} alt="fireSpot" />
+        <img className="img" src={shortItemProps.img} alt="fireSpot" />
       </div>
       <div className="name">
-        <h1>{name}</h1>
+        <h1>{shortItemProps.name}</h1>
       </div>
       <div className="price">
-        <p>{price} руб.</p>
+        <p>{shortItemProps.price} руб.</p>
       </div>
       <div className="basketButton">
-        <BasketButton size={'small'} count={count} />
+        <BasketButton size={'small'} count={shortItemProps.count} />
       </div>
       <div className="description">
-        <div className={'div-max-height'}>{description}</div>
+        <div className={'div-max-height'}>{shortItemProps.description}</div>
       </div>
     </div>
   );
