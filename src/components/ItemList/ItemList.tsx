@@ -42,7 +42,7 @@ export const ItemList: React.FC<ItemListProps> = ({ itemList }: ItemListProps) =
                 name={item.name}
                 description={item.description}
                 count={item.count}
-              ></ShortProductCard>
+              />
             </li>
           ))}
         </ul>
