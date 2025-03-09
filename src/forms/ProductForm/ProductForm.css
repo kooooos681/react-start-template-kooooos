@@ -1,0 +1,65 @@
+.sberbank-theme {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f3f4f6;
+    font-family: Arial, sans-serif;
+}
+
+.product-form-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.product-field {
+    margin-bottom: 20px;
+}
+
+.product-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #007f3e;
+}
+
+.product-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #007f3e;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.product-input:focus {
+    border-color: #00b956;
+    outline: none;
+}
+
+.product-error {
+    color: #d72638;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.product-submit-button {
+    width: 100%;
+    background: #007f3e;
+    color: #ffffff;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.product-submit-button:hover {
+    background: #00b956;
+}
