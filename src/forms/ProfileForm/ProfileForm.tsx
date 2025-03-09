@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import './WestCoastStyle.css';
 
 interface ProfileFormData {
   username: string;
@@ -20,23 +21,29 @@ export const ProfileForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Username</label>
-        <input {...register('username', { required: 'Username is required' })} />
-        {errors.username && <span>{errors.username.message}</span>}
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          {...register('email', {
-            required: 'Email is required',
-            pattern: { value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/, message: 'Invalid email' },
-          })}
-        />
-        {errors.email && <span>{errors.email.message}</span>}
-      </div>
-      <button type="submit">Save Profile</button>
-    </form>
+    <div className="westcoast-vibes">
+      <form className="profile-form" onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-field">
+          <label className="form-label">Имя пользователя </label>
+          <input
+            className="form-input"
+            {...register('username', { required: 'Username is required' })}
+          />
+          {errors.username && <span className="form-error">{errors.username.message}</span>}
+        </div>
+        <div className="form-field">
+          <label className="form-label">Email </label>
+          <input
+            className="form-input"
+            {...register('email', {
+              required: 'Email is required',
+              pattern: { value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/, message: 'Invalid email' },
+            })}
+          />
+          {errors.email && <span className="form-error">{errors.email.message}</span>}
+        </div>
+        <button type="submit" className="form-button">Save Profile</button>
+      </form>
+    </div>
   );
 };

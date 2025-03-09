@@ -1,6 +1,7 @@
 import React from 'react';
 import { AuthForm } from './AuthForm';
 import { Meta, Story } from '@storybook/react';
+import './AuthForm.css';
 
 export default {
   title: 'Forms/AuthForm',
