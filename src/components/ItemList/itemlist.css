@@ -1,0 +1,35 @@
+.product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.product-item {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.product-item:hover {
+    background: #eaeaea;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}

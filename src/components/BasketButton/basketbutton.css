@@ -1,0 +1,58 @@
+.button {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.primary {
+    background: #ff671f;
+    color: #fff;
+}
+
+.secondary {
+    background: #008a00;
+    color: #fff;
+}
+
+.small {
+    font-size: 14px;
+    padding: 8px 16px;
+}
+
+.medium {
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.large {
+    font-size: 18px;
+    padding: 12px 24px;
+}
+
+.counterContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.decrement, .increment {
+    background: #ff671f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.countInput {
+    width: 40px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

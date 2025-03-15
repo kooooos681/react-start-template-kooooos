@@ -1,18 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import ProfilePage from '../pages/ProfilePage';
+import ProductsPage from '../pages/ProductsPage';
+import BasketPage from '../pages/BasketPage';
+import HomePage from '../pages/HomePage';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Текст писать тут
-        </p>
+    <Router>
+      <header className="header">
+        <h1 className="logo">Магазин</h1>
+        <nav className="nav">
+          <Link to="/" className="nav-link">
+            Главная
+          </Link>
+          <Link to="/profile" className="nav-link">
+            Профиль
+          </Link>
+          <Link to="/products" className="nav-link">
+            Товары
+          </Link>
+          <Link to="/basket" className="nav-link">
+            Корзина
+          </Link>
+        </nav>
       </header>
-    </div>
+      <main className="main">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/basket" element={<BasketPage />} />
+        </Routes>
+      </main>
+    </Router>
   );
-}
+};
 
 export default App;

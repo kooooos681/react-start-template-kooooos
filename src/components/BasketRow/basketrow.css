@@ -1,0 +1,50 @@
+.basket-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.basket-image img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.basket-name {
+    flex: 1;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding: 0 15px;
+}
+
+.basket-delete button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.basket-price {
+    font-size: 14px;
+    color: #666;
+    min-width: 100px;
+    text-align: center;
+}
+
+.basket-action {
+    display: flex;
+    align-items: center;
+}
+
+.basket-total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff671f;
+    min-width: 100px;
+    text-align: right;
+}
