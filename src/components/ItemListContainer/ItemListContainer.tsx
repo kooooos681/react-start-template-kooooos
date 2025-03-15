@@ -53,8 +53,12 @@ export const ItemListContainer: React.FC = () => {
   );
 };
 
+type ItemFilterType = {
+  onSearch: (query: string) => void;
+};
+
 // 1. Controlled Input
-export const ItemFilter: React.FC<{ onSearch: (query: string) => void }> = ({ onSearch }) => {
+export const ItemFilter: React.FC<ItemFilterType> = ({ onSearch }) => {
   const [query, setQuery] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,8 +69,12 @@ export const ItemFilter: React.FC<{ onSearch: (query: string) => void }> = ({ on
   return <input type="text" value={query} onChange={handleChange} placeholder="Поиск товара..." />;
 };
 
+type ButtonType = {
+  onClick: () => void;
+  label: string;
+};
 // 2. JSX Spread Attributes
-const Button = ({ onClick, label, ...props }: { onClick: () => void; label: string }) => (
+const Button = ({ onClick, label, ...props }: ButtonType) => (
   <button onClick={onClick} {...props}>
     {label}
   </button>
@@ -102,14 +110,16 @@ const ItemListWithChildren: React.FC<{ items: ShortItemProps[]; children?: React
 };
 
 // 5. Higher-Order Component (HOC)
-const withLoadingIndicator = (Component: React.ComponentType) => (props: any) => {
-  return (
-    <div>
-      <Component {...props} />
-      <div>Загрузка...</div>
-    </div>
-  );
-};
+const withLoadingIndicator =
+  <T extends object>(Component: React.ComponentType<T>) =>
+  (props: T) => {
+    return (
+      <>
+        <Component {...props} />
+        <div>Загрузка...</div>
+      </>
+    );
+  };
 
 const EnhancedItemList = withLoadingIndicator(ItemListWithChildren);
 
