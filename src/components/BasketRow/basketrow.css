@@ -1,11 +1,58 @@
-.basket-row {
+.basketRow {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
     background: #fff;
-    font-family: Arial, sans-serif;
+}
+
+.basketRowTitle {
+    flex: 1;
+    margin-right: 20px;
+    font-weight: 500;
+}
+
+.basketRowPrice {
+    margin-right: 20px;
+    color: #666;
+}
+
+.basketRowControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+.basketRowControls button {
+    padding: 5px 10px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.basketRowControls button:hover {
+    background: #e0e0e0;
+}
+
+.basketRowControls span {
+    min-width: 30px;
+    text-align: center;
+}
+
+.basketRowRemove {
+    padding: 8px 16px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.basketRowRemove:hover {
+    background: #ff0000;
 }
 
 .basket-image img {

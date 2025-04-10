@@ -1,37 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
-import { ShortItemProps, ShortProductCard } from '../ShortProductCard/ShortProductCard';
 import './itemlist.css';
 
-interface ItemListProps {
-  itemList: ShortItemProps[];
+export interface ItemProps {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
 }
 
-export const ItemList: React.FC<ItemListProps> = ({ itemList }) => {
-  const [modalItem, setModalItem] = useState<ShortItemProps | null>(null);
+interface ItemListProps {
+  items: ItemProps[];
+  onAddToBasket: (id: number) => void;
+}
+
+interface ModalProps {
+  item: ItemProps;
+  onClose: () => void;
+}
+
+const ItemList: React.FC<ItemListProps> = ({ items, onAddToBasket }) => {
+  const [modalItem, setModalItem] = useState<ItemProps | null>(null);
 
   return (
-    <div className="product-list">
-      {itemList.map((item) => (
-        <div key={item.id} className="product-item" onClick={() => setModalItem(item)}>
-          <ShortProductCard {...item} />
-        </div>
-      ))}
+    <div className="itemList">
+      <h2>Items</h2>
+      <ul className="itemListItems">
+        {items.map((item: ItemProps) => (
+          <li key={item.id} className="itemListItem" onClick={() => setModalItem(item)}>
+            <div className="itemTitle">{item.title}</div>
+            <div className="itemPrice">{item.price} ₽</div>
+            <button onClick={(e) => {
+              e.stopPropagation();
+              onAddToBasket(item.id);
+            }}>Add to Basket</button>
+          </li>
+        ))}
+      </ul>
       {modalItem && <Modal item={modalItem} onClose={() => setModalItem(null)} />}
     </div>
   );
 };
 
-interface ModalProps {
-  item: ShortItemProps;
-  onClose: () => void;
-}
-
 const Modal: React.FC<ModalProps> = ({ item, onClose }) => {
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => e.stopPropagation();
+  
   return createPortal(
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h3>{item.name}</h3>
+      <div className="modal-content" onClick={handleClick}>
+        <img src={item.image} alt={item.title} className="modalImage" />
+        <h3>{item.title}</h3>
         <p>Цена: {item.price} ₽</p>
         <button onClick={onClose}>Закрыть</button>
       </div>
@@ -39,3 +57,5 @@ const Modal: React.FC<ModalProps> = ({ item, onClose }) => {
     document.body
   );
 };
+
+export default ItemList;

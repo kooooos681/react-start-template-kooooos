@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/ProductsPage.css";
-import { ItemListDemoButton } from "src/components/ItemListContainer/ItemList_Demo_Button";
+import { ItemListDemoButton } from "../components/ItemListContainer/ItemList_Demo_Button";
 
 const ProductsPage: React.FC = () => {
   return (

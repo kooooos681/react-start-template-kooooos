@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react';
-import { withRouter } from './decorators';
+import { MemoryRouter } from 'react-router-dom';
+import React from 'react';
 
 const preview: Preview = {
   parameters: {
@@ -11,7 +12,13 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [withRouter],
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={['/']}>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
 };
 
-export default preview;
+export default preview; 

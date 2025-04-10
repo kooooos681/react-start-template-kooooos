@@ -1,32 +1,28 @@
 import React from 'react';
-import './shortproductcard.css';
-import { BasketButton } from '../BasketButton/BasketButton';
+import './ShortProductCard.css';
 
-export interface ShortItemProps {
-  id: string;
-  img: string;
+interface ShortProductCardProps {
+  id: number;
+  title: string;
   price: number;
-  name: string;
-  description: string;
-  count: number;
+  image: string;
 }
 
-export const ShortProductCard = (shortItemProps: ShortItemProps) => {
+const ShortProductCard: React.FC<ShortProductCardProps> = ({ 
+  id, 
+  title, 
+  price, 
+  image 
+}) => {
   return (
-    <div className="product-row">
-      <div className="product-image">
-        <img src={shortItemProps.img} alt={shortItemProps.name} />
-      </div>
-      <div className="product-details">
-        <h2 className="product-name">{shortItemProps.name}</h2>
-        <p className="product-description">{shortItemProps.description}</p>
-      </div>
-      <div className="product-price">
-        <span>{shortItemProps.price} руб.</span>
-      </div>
-      <div className="product-action" onClick={(e) => e.stopPropagation()}>
-        <BasketButton size={'small'} count={shortItemProps.count} />
+    <div className="shortProductCard">
+      <img src={image} alt={title} className="shortProductCardImage" />
+      <div className="shortProductCardContent">
+        <h3 className="shortProductCardTitle">{title}</h3>
+        <p className="shortProductCardPrice">{price} ₽</p>
       </div>
     </div>
   );
 };
+
+export default ShortProductCard;

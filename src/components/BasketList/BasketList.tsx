@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../styles/ProductList.css';
-import { BasketRow, BasketRowProps } from '../BasketRow/BasketRow';
+import './BasketList.css';
+import BasketRow, { BasketRowProps } from '../BasketRow/BasketRow';
 
 interface BasketListProps {
   products: BasketRowProps[];
@@ -8,11 +8,11 @@ interface BasketListProps {
 
 const BasketList: React.FC<BasketListProps> = ({ products }) => {
   return (
-    <ul className="product-list">
+    <div className="basket-list">
       {products.map((product) => (
-        <BasketRow {...product} />
+        <BasketRow key={product.id} {...product} />
       ))}
-    </ul>
+    </div>
   );
 };
 

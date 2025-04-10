@@ -1,32 +1,39 @@
 import React from 'react';
-import './basketrow.css';
-import { BasketButton } from '../BasketButton/BasketButton';
-import delete_logo from './icon_delete.svg';
+import './BasketRow.css';
 
 export interface BasketRowProps {
-  img: string;
-  name: string;
+  id: number;
+  title: string;
   price: number;
   count: number;
+  onRemove: (id: number) => void;
+  onIncrement: (id: number) => void;
+  onDecrement: (id: number) => void;
 }
 
-export function BasketRow(props: BasketRowProps) {
+const BasketRow: React.FC<BasketRowProps> = ({ 
+  id, 
+  title, 
+  price, 
+  count, 
+  onRemove, 
+  onIncrement, 
+  onDecrement 
+}) => {
   return (
-    <div className="basket-row">
-      <div className="basket-image">
-        <img src={props.img} alt="Product" />
+    <div className="basketRow">
+      <span className="basketRowTitle">{title}</span>
+      <span className="basketRowPrice">{price} ₽</span>
+      <div className="basketRowControls">
+        <button onClick={() => onDecrement(id)}>-</button>
+        <span>{count}</span>
+        <button onClick={() => onIncrement(id)}>+</button>
       </div>
-      <div className="basket-name">{props.name}</div>
-      <div className="basket-price">{props.price} руб./шт.</div>
-      <div className="basket-action" onClick={(e) => e.stopPropagation()}>
-        <BasketButton count={props.count} />
-      </div>
-      <div className="basket-total">&nbsp;Итого: {props.price * props.count} руб.</div>
-      <div className="basket-delete">
-        <button>
-          <img src={delete_logo} alt="Delete" />
-        </button>
-      </div>
+      <button className="basketRowRemove" onClick={() => onRemove(id)}>
+        Удалить
+      </button>
     </div>
   );
-}
+};
+
+export default BasketRow;
