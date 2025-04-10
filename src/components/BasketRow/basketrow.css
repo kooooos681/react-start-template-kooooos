@@ -1,0 +1,97 @@
+.basketRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+}
+
+.basketRowTitle {
+    flex: 1;
+    margin-right: 20px;
+    font-weight: 500;
+}
+
+.basketRowPrice {
+    margin-right: 20px;
+    color: #666;
+}
+
+.basketRowControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+.basketRowControls button {
+    padding: 5px 10px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.basketRowControls button:hover {
+    background: #e0e0e0;
+}
+
+.basketRowControls span {
+    min-width: 30px;
+    text-align: center;
+}
+
+.basketRowRemove {
+    padding: 8px 16px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.basketRowRemove:hover {
+    background: #ff0000;
+}
+
+.basket-image img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.basket-name {
+    flex: 1;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding: 0 15px;
+}
+
+.basket-delete button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.basket-price {
+    font-size: 14px;
+    color: #666;
+    min-width: 100px;
+    text-align: center;
+}
+
+.basket-action {
+    display: flex;
+    align-items: center;
+}
+
+.basket-total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff671f;
+    min-width: 100px;
+    text-align: right;
+}
