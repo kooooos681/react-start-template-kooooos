@@ -24,8 +24,8 @@ function* handleFetchProfile() {
     // Генерируем фейковые данные профиля
     const fakeProfile = {
       id: '1',
-      name: 'John Doe',
-      email: 'john@example.com',
+      name: 'Алексей Королев',
+      email: 'whispersofdew@gmail.com',
       avatar: 'https://via.placeholder.com/150',
     };
     
