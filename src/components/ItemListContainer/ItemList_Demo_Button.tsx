@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ItemList, { Item } from '../ItemList/ItemList';
+import logo from './favicon.svg';
 
 export const ItemListDemoButton: React.FC = () => {
   const [items] = useState<Item[]>([
@@ -8,14 +9,14 @@ export const ItemListDemoButton: React.FC = () => {
       title: 'Product 1',
       price: 100,
       description: 'Description for product 1',
-      image: 'http://19429ba06ff2.vps.myjino.ru/api/upload/1.jpg',
+      image: logo,
     },
     {
       id: 2,
       title: 'Product 2',
       price: 200,
       description: 'Description for product 2',
-      image: 'http://19429ba06ff2.vps.myjino.ru/api/upload/2.jpg',
+      image: logo,
     },
   ]);
 

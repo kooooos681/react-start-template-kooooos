@@ -27,7 +27,6 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      thunk: false,
       serializableCheck: false,
     }).concat(sagaMiddleware, logger, authApi.middleware, registerApi.middleware),
 });

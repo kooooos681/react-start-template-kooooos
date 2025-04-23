@@ -6,8 +6,7 @@ interface RegisterRequest {
 }
 
 interface RegisterResponse {
-  id: string;
-  email: string;
+  token: string;
 }
 
 export const registerApi = createApi({
