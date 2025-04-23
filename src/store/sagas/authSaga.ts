@@ -1,23 +1,19 @@
-import { takeLatest, put, delay } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 import { loginRequest, loginSuccess, loginFailure, setAdmin } from '../slices/authSlice';
+import { authService } from '../../api/services';
+import { ApiError, LoginCredentials } from '../../api/types';
 
-// Имитация API запроса
-function* handleLogin() {
+function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, void, any> {
   try {
-    // Имитируем задержку запроса
-    yield delay(1000);
+    const { email, password } = action.payload as LoginCredentials;
+    const response = yield call(authService.login, { email, password });
     
-    // Генерируем фейковый токен
-    const token = `fake-token-${Date.now()}`;
-    
-    // Имитируем успешный вход
-    yield put(loginSuccess(token));
-    
-    // Случайным образом определяем, является ли пользователь админом
-    yield put(setAdmin(Math.random() > 0.5));
-    
+    localStorage.setItem('token', response.token);
+    yield put(loginSuccess(response.token));
+    yield put(setAdmin(response.user.role === 'ADMIN'));
   } catch (error) {
-    yield put(loginFailure(error instanceof Error ? error.message : 'Unknown error'));
+    const apiError = error as ApiError;
+    yield put(loginFailure(apiError.message));
   }
 }
 

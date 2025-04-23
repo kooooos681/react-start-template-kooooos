@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { loginRequest, loginSuccess, loginFailure } from '../store/slices/authSlice';
-import { login } from '../api/auth';
+import { useNavigate } from 'react-router-dom';
 import '../styles/LoginPage.css';
 
-const LoginPage: React.FC = () => {
-  const dispatch = useAppDispatch();
+interface RegisterFormData {
+  email: string;
+  password: string;
+}
+
+const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { loading, error } = useAppSelector((state) => state.auth);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<RegisterFormData>({
     email: '',
     password: '',
   });
-
-  const from = location.state?.from?.pathname || '/';
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,21 +26,37 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginRequest());
-    
+    setError(null);
+    setLoading(true);
+
     try {
-      const response = await login(formData.email, formData.password);
-      dispatch(loginSuccess(response.token));
-      navigate(from, { replace: true });
+      const response = await fetch('https://api.example.com/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Ошибка при регистрации');
+      }
+
+      // Успешная регистрация
+      navigate('/login');
     } catch (err) {
-      dispatch(loginFailure(err instanceof Error ? err.message : 'Ошибка авторизации'));
+      setError(err instanceof Error ? err.message : 'Произошла ошибка');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="login-page">
       <div className="login-container">
-        <h1>Вход в систему</h1>
+        <h1>Регистрация</h1>
         {error && <div className="error">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -67,7 +82,7 @@ const LoginPage: React.FC = () => {
             />
           </div>
           <button type="submit" disabled={loading}>
-            {loading ? 'Загрузка...' : 'Войти'}
+            {loading ? 'Загрузка...' : 'Зарегистрироваться'}
           </button>
         </form>
       </div>
@@ -75,4 +90,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage; 
+export default RegisterPage; 

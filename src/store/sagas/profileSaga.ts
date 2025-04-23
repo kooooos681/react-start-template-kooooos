@@ -1,16 +1,16 @@
-import { takeLatest, put, delay, select } from 'redux-saga/effects';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
 import {
   fetchProfileRequest,
   fetchProfileSuccess,
   fetchProfileFailure,
   clearProfile,
 } from '../slices/profileSlice';
-import { RootState } from '../index';
+import { RootState } from '../types';
+import { ApiError } from '../../api/types';
+import type { User } from '../../store/baseTypes';
 
-// Имитация API запроса
 function* handleFetchProfile() {
   try {
-    // Проверяем наличие токена
     const token: string | null = yield select((state: RootState) => state.auth.token);
     
     if (!token) {
@@ -18,20 +18,21 @@ function* handleFetchProfile() {
       return;
     }
 
-    // Имитируем задержку запроса
-    yield delay(1000);
-    
-    // Генерируем фейковые данные профиля
-    const fakeProfile = {
-      id: '1',
-      name: 'Алексей Королев',
-      email: 'whispersofdew@gmail.com',
-      avatar: 'https://via.placeholder.com/150',
-    };
-    
-    yield put(fetchProfileSuccess(fakeProfile));
+    const response: Response = yield call(fetch, `${process.env.REACT_APP_API_URL}/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch profile');
+    }
+
+    const profile: User = yield call([response, 'json']);
+    yield put(fetchProfileSuccess(profile));
   } catch (error) {
-    yield put(fetchProfileFailure(error instanceof Error ? error.message : 'Unknown error'));
+    const apiError = error as ApiError;
+    yield put(fetchProfileFailure(apiError.message));
   }
 }
 

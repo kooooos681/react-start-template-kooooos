@@ -1,11 +1,22 @@
-import { takeLatest, put, select } from 'redux-saga/effects';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { addToCart, removeFromCart, updateQuantity } from '../slices/cartSlice';
-import { RootState } from '../index';
+import { ordersService } from '../../api/services';
+import { RootState } from '../types';
+import { ApiError, CartItem } from '../../api/types';
 
 // Сохранение корзины в localStorage
-function* handleCartChange() {
-  const cart: RootState['cart'] = yield select((state: RootState) => state.cart);
-  localStorage.setItem('cart', JSON.stringify(cart.items));
+function* handleCartChange(): Generator<any, void, any> {
+  try {
+    const cart: RootState['cart'] = yield select((state: RootState) => state.cart);
+    const productIds = cart.items.map((item: CartItem) => item.id);
+    
+    if (productIds.length > 0) {
+      yield call(ordersService.createOrder, productIds);
+    }
+  } catch (error) {
+    const apiError = error as ApiError;
+    console.error('Failed to sync cart with server:', apiError.message);
+  }
 }
 
 export function* watchCart() {

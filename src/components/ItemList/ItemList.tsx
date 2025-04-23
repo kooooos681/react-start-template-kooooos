@@ -1,60 +1,77 @@
-import React, { useState, MouseEvent } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useState } from 'react';
 import './itemlist.css';
+import '../../styles/common.css';
 
-export interface ItemProps {
+export interface Item {
   id: number;
   title: string;
   price: number;
+  description: string;
   image: string;
 }
 
 interface ItemListProps {
-  items: ItemProps[];
+  items: Item[];
   onAddToBasket: (id: number) => void;
 }
 
-interface ModalProps {
-  item: ItemProps;
-  onClose: () => void;
-}
-
 const ItemList: React.FC<ItemListProps> = ({ items, onAddToBasket }) => {
-  const [modalItem, setModalItem] = useState<ItemProps | null>(null);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+
+  const handleItemClick = (item: Item) => {
+    setSelectedItem(item);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedItem(null);
+  };
 
   return (
     <div className="itemList">
-      <h2>Items</h2>
       <ul className="itemListItems">
-        {items.map((item: ItemProps) => (
-          <li key={item.id} className="itemListItem" onClick={() => setModalItem(item)}>
-            <div className="itemTitle">{item.title}</div>
-            <div className="itemPrice">{item.price} ₽</div>
-            <button onClick={(e) => {
-              e.stopPropagation();
-              onAddToBasket(item.id);
-            }}>Add to Basket</button>
+        {items.map((item) => (
+          <li key={item.id} className="itemListItem">
+            <img src={item.image} alt={item.title} className="itemImage" />
+            <h3 className="itemTitle">{item.title}</h3>
+            <p className="itemPrice">{item.price} ₽</p>
+            <p className="itemDescription">{item.description}</p>
+            <div className="itemActions">
+              <button className="button button-small button-primary" onClick={() => handleItemClick(item)}>
+                Подробнее
+              </button>
+              <button className="button button-small button-success" onClick={() => onAddToBasket(item.id)}>
+                В корзину
+              </button>
+            </div>
           </li>
         ))}
       </ul>
-      {modalItem && <Modal item={modalItem} onClose={() => setModalItem(null)} />}
-    </div>
-  );
-};
 
-const Modal: React.FC<ModalProps> = ({ item, onClose }) => {
-  const handleClick = (e: MouseEvent<HTMLDivElement>) => e.stopPropagation();
-  
-  return createPortal(
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={handleClick}>
-        <img src={item.image} alt={item.title} className="modalImage" />
-        <h3>{item.title}</h3>
-        <p>Цена: {item.price} ₽</p>
-        <button onClick={onClose}>Закрыть</button>
-      </div>
-    </div>,
-    document.body
+      {selectedItem && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedItem.image} alt={selectedItem.title} className="modalImage" />
+            <h2 className="modalTitle">{selectedItem.title}</h2>
+            <p className="modalDescription">{selectedItem.description}</p>
+            <p className="modalPrice">{selectedItem.price} ₽</p>
+            <div className="modalActions">
+              <button className="button button-primary" onClick={handleCloseModal}>
+                Закрыть
+              </button>
+              <button
+                className="button button-success"
+                onClick={() => {
+                  onAddToBasket(selectedItem.id);
+                  handleCloseModal();
+                }}
+              >
+                Добавить в корзину
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -1,12 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { User } from '../baseTypes';
 
 interface ProfileState {
-  data: {
-    id: string;
-    name: string;
-    email: string;
-    avatar: string;
-  } | null;
+  data: User | null;
   loading: boolean;
   error: string | null;
 }
@@ -25,7 +21,7 @@ const profileSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    fetchProfileSuccess: (state, action: PayloadAction<ProfileState['data']>) => {
+    fetchProfileSuccess: (state, action: PayloadAction<User>) => {
       state.data = action.payload;
       state.loading = false;
       state.error = null;

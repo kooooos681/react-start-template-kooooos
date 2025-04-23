@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import ItemList from '../ItemList/ItemList';
-import { ItemProps } from '../ItemList/ItemList';
-import logo from './favicon.svg';
+import ItemList, { Item } from '../ItemList/ItemList';
 
 export const ItemListDemoButton: React.FC = () => {
-  const [items] = useState<ItemProps[]>([
+  const [items] = useState<Item[]>([
     {
       id: 1,
       title: 'Product 1',
       price: 100,
-      image: logo
+      description: 'Description for product 1',
+      image: 'http://19429ba06ff2.vps.myjino.ru/api/upload/1.jpg',
     },
     {
       id: 2,
       title: 'Product 2',
       price: 200,
-      image: logo
-    }
+      description: 'Description for product 2',
+      image: 'http://19429ba06ff2.vps.myjino.ru/api/upload/2.jpg',
+    },
   ]);
 
   const handleAddToBasket = (id: number) => {
-    console.log('Added to basket:', id);
+    console.log(`Added to basket: ${id}`);
   };
 
   return (

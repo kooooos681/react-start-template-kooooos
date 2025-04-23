@@ -6,6 +6,11 @@ import appReducer from './slices/appSlice';
 import profileReducer from './slices/profileSlice';
 import cartReducer from './slices/cartSlice';
 import productsReducer from './slices/productsSlice';
+import registerSagaReducer from './slices/registerSagaSlice';
+import { logger } from './middleware/logger';
+import type { RootState } from './types';
+import { authApi } from './api/authApi';
+import { registerApi } from './api/registerApi';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,12 +21,19 @@ export const store = configureStore({
     profile: profileReducer,
     cart: cartReducer,
     products: productsReducer,
+    registerSaga: registerSagaReducer,
+    [authApi.reducerPath]: authApi.reducer,
+    [registerApi.reducerPath]: registerApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(sagaMiddleware),
+    getDefaultMiddleware({
+      thunk: false,
+      serializableCheck: false,
+    }).concat(sagaMiddleware, logger, authApi.middleware, registerApi.middleware),
 });
 
 sagaMiddleware.run(rootSaga);
 
-export type RootState = ReturnType<typeof store.getState>;
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type { RootState };
 export type AppDispatch = typeof store.dispatch; 

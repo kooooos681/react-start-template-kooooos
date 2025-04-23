@@ -1,5 +1,5 @@
-import React from 'react';
-import './BasketRow.css';
+import React, { memo } from 'react';
+import './basketrow.css';
 
 export interface BasketRowProps {
   id: number;
@@ -11,15 +11,7 @@ export interface BasketRowProps {
   onDecrement: (id: number) => void;
 }
 
-const BasketRow: React.FC<BasketRowProps> = ({ 
-  id, 
-  title, 
-  price, 
-  count, 
-  onRemove, 
-  onIncrement, 
-  onDecrement 
-}) => {
+const BasketRow: React.FC<BasketRowProps> = ({ id, title, price, count, onRemove, onIncrement, onDecrement }) => {
   return (
     <div className="basketRow">
       <span className="basketRowTitle">{title}</span>
@@ -36,4 +28,4 @@ const BasketRow: React.FC<BasketRowProps> = ({
   );
 };
 
-export default BasketRow;
+export default memo(BasketRow);
