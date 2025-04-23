@@ -1,28 +1,57 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Header from '../components/Header/Header';
-import ProfilePage from '../pages/ProfilePage';
+import { Routes, Route, Link } from 'react-router-dom';
+import { useAppSelector } from '../store/hooks';
+import LoginPage from '../pages/LoginPage';
+import { ProfilePage } from '../pages/ProfilePage';
 import ProductsPage from '../pages/ProductsPage';
 import BasketPage from '../pages/BasketPage';
-import HomePage from '../pages/HomePage';
 import ModalPage from '../pages/ModalPage';
+import { ProtectedRoute } from '../components/ProtectedRoute';
 import './App.css';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
+  const { isAuthenticated, isAdmin } = useAppSelector((state) => state.auth);
+
   return (
-    <div className="App">
-      <Header />
+    <div className="app">
+      <nav className="nav">
+        <Link to="/">Главная</Link>
+        <Link to="/products">Товары</Link>
+        <Link to="/basket">Корзина</Link>
+        {isAuthenticated ? (
+          <>
+            <Link to="/profile">Профиль</Link>
+            {isAdmin && <Link to="/modal">Редактировать товары</Link>}
+          </>
+        ) : (
+          <Link to="/login">Войти</Link>
+        )}
+      </nav>
+
       <main className="main">
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute requireAuth>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/basket" element={<BasketPage />} />
-          <Route path="/modal/:id" element={<ModalPage />} />
+          <Route
+            path="/modal"
+            element={
+              <ProtectedRoute requireAdmin>
+                <ModalPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<div>Главная страница</div>} />
         </Routes>
       </main>
     </div>
   );
 };
-
-export default App;
