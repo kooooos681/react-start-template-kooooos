@@ -4,7 +4,7 @@ import BasketRow from './BasketRow';
 
 describe('BasketRow', () => {
   const mockProps = {
-    id: 1,
+    id: '1',
     title: 'Test Product',
     price: 100,
     count: 2,
@@ -29,20 +29,20 @@ describe('BasketRow', () => {
     render(<BasketRow {...mockProps} />);
     
     fireEvent.click(screen.getByText('Удалить'));
-    expect(mockProps.onRemove).toHaveBeenCalledWith(1);
+    expect(mockProps.onRemove).toHaveBeenCalledWith('1');
   });
 
   it('calls onIncrement when increment button is clicked', () => {
     render(<BasketRow {...mockProps} />);
     
     fireEvent.click(screen.getByText('+'));
-    expect(mockProps.onIncrement).toHaveBeenCalledWith(1);
+    expect(mockProps.onIncrement).toHaveBeenCalledWith('1');
   });
 
   it('calls onDecrement when decrement button is clicked', () => {
     render(<BasketRow {...mockProps} />);
     
     fireEvent.click(screen.getByText('-'));
-    expect(mockProps.onDecrement).toHaveBeenCalledWith(1);
+    expect(mockProps.onDecrement).toHaveBeenCalledWith('1');
   });
 }); 

@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { loginRequest, loginSuccess, loginFailure } from '../store/slices/authSlice';
-import { login } from '../api/auth';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 import '../styles/LoginPage.css';
 
 const LoginPage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
-  const { loading, error } = useAppSelector((state) => state.auth);
+  const { login, loading, error } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -27,14 +23,10 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginRequest());
-    
     try {
-      const response = await login(formData.email, formData.password);
-      dispatch(loginSuccess(response.token));
-      navigate(from, { replace: true });
+      await login(formData.email, formData.password);
     } catch (err) {
-      dispatch(loginFailure(err instanceof Error ? err.message : 'Ошибка авторизации'));
+      console.error('Login error:', err);
     }
   };
 

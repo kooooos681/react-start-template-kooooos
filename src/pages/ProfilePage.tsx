@@ -1,42 +1,94 @@
-import React from 'react';
-import { useAppSelector, useAppDispatch } from '../store/hooks';
-import { logout } from '../store/slices/authSlice';
-import { ProtectedRoute } from '../components/ProtectedRoute';
+import React, { useState, useRef } from 'react';
+import { useProfile } from '../hooks/useProfile';
 import '../styles/ProfilePage.css';
 
-export const ProfilePage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { data: profile, loading } = useAppSelector((state) => state.profile);
-  const { isAdmin } = useAppSelector((state) => state.auth);
+const ProfilePage: React.FC = () => {
+  const { profile, loading, error, updateProfile, uploadAvatar } = useProfile();
+  const [name, setName] = useState(profile?.name || '');
+  const [email, setEmail] = useState(profile?.email || '');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await updateProfile({ name, email });
+    } catch (err) {
+      console.error('Error updating profile:', err);
+    }
+  };
+
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        await uploadAvatar(file);
+      } catch (err) {
+        console.error('Error uploading avatar:', err);
+      }
+    }
   };
 
   if (loading) {
-    return <div>Загрузка...</div>;
+    return <div className="loading">Загрузка...</div>;
+  }
+
+  if (error) {
+    return <div className="error">{error.message}</div>;
   }
 
   return (
-    <ProtectedRoute requireAuth>
-      <div className="profile-page">
-        <div className="profile-container">
-          <h1>Профиль пользователя</h1>
-          {profile && (
-            <div className="profile-info">
-              <img src={profile.avatar} alt="Avatar" className="avatar" />
-              <div className="details">
-                <p><strong>Имя:</strong> {profile.name}</p>
-                <p><strong>Email:</strong> {profile.email}</p>
-                <p><strong>Роль:</strong> {isAdmin ? 'Администратор' : 'Пользователь'}</p>
-              </div>
-            </div>
+    <div className="profile-container">
+      <h1>Профиль</h1>
+      <div className="profile-content">
+        <div className="profile-avatar" onClick={handleAvatarClick}>
+          {profile?.avatar ? (
+            <img src={profile.avatar} alt="Avatar" />
+          ) : (
+            <div className="avatar-placeholder">No avatar</div>
           )}
-          <button onClick={handleLogout} className="logout-button">
-            Выйти
-          </button>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            accept="image/*"
+            style={{ display: 'none' }}
+          />
+          <div className="avatar-overlay">
+            <span>Изменить фото</span>
+          </div>
         </div>
+        <form onSubmit={handleSubmit} className="profile-form">
+          <div className="form-group">
+            <label htmlFor="name">Имя:</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="button button-primary">
+            Сохранить изменения
+          </button>
+        </form>
       </div>
-    </ProtectedRoute>
+    </div>
   );
 };
+
+export default ProfilePage;
