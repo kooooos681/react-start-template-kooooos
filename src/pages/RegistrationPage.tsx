@@ -1,6 +1,5 @@
 import React from 'react';
 import { FunctionalRegistration } from '../components/Registration/FunctionalRegistration';
-import { RTKRegistration } from '../components/Registration/RTKRegistration';
 import styles from './RegistrationPage.module.css';
 
 export const RegistrationPage: React.FC = () => {
@@ -12,8 +11,7 @@ export const RegistrationPage: React.FC = () => {
       </div>
       <div className={styles.section}>
         <h2>RTK Query Registration</h2>
-        <RTKRegistration />
       </div>
     </div>
   );
-}; 
+};

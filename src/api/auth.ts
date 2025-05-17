@@ -54,15 +54,27 @@ export interface LoginResponse {
   token: string;
 }
 
-export const register = async (email: string, password: string): Promise<RegisterResponse> => {
+const saveToken = (token: string) => {
+  localStorage.setItem('token', token);
+  // Устанавливаем токен для всех последующих запросов
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+};
+
+const clearToken = () => {
+  localStorage.removeItem('token');
+  delete axios.defaults.headers.common['Authorization'];
+};
+
+export const register = async (email: string, password: string, commandId: string ): Promise<RegisterResponse> => {
   try {
-    const url = `${API_CONFIG.BASE_URL}/signup`;
+    const url = `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.REGISTER}`;
     console.log('Full registration URL:', url);
     console.log('Request payload:', { email, password });
     
     const response = await axios.post<RegisterResponse>(url, {
       email,
       password,
+      commandId,
     }, {
       timeout: 5000,
       headers: {
@@ -72,6 +84,7 @@ export const register = async (email: string, password: string): Promise<Registe
     });
     
     console.log('Registration response:', response.data);
+    saveToken(response.data.token);
     return response.data;
   } catch (error) {
     console.error('Registration API error:', error);
@@ -124,9 +137,13 @@ export const register = async (email: string, password: string): Promise<Registe
 
 export const login = async (email: string, password: string): Promise<LoginResponse> => {
   try {
-    const url = `${API_CONFIG.BASE_URL}/signin`;
+    const url = `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.LOGIN}`;
     console.log('Full login URL:', url);
     console.log('Request payload:', { email, password });
+    console.log('Request headers:', {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    });
     
     const response = await axios.post<LoginResponse>(url, {
       email,
@@ -140,6 +157,7 @@ export const login = async (email: string, password: string): Promise<LoginRespo
     });
     
     console.log('Login response:', response.data);
+    saveToken(response.data.token);
     return response.data;
   } catch (error) {
     console.error('Login API error:', error);
@@ -156,6 +174,8 @@ export const login = async (email: string, password: string): Promise<LoginRespo
         config: error.config,
         url: error.config?.url,
         baseURL: error.config?.baseURL,
+        headers: error.config?.headers,
+        method: error.config?.method,
       });
 
       if (error.code === 'ECONNABORTED') {
@@ -188,4 +208,14 @@ export const login = async (email: string, password: string): Promise<LoginRespo
     }
     throw new ApiError('Произошла неизвестная ошибка');
   }
-}; 
+};
+
+export const logout = () => {
+  clearToken();
+};
+
+// Инициализация токена при загрузке
+const token = localStorage.getItem('token');
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+} 

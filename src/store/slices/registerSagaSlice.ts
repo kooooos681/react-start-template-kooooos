@@ -10,6 +10,7 @@ export interface RegisterState {
 export interface RegisterCredentials {
   email: string;
   password: string;
+  commandId: string;
 }
 
 const initialState: RegisterState = {

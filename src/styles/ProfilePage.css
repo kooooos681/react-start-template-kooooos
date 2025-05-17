@@ -1,43 +1,191 @@
 .profile-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
   background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--x5-spacing-lg);
 }
 
 .profile-container {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--x5-white);
+  padding: var(--x5-spacing-xl);
+  border-radius: var(--x5-radius-lg);
+  box-shadow: var(--x5-shadow-lg);
   text-align: center;
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
+  margin: 0 auto;
+}
+
+.profile-title {
+  color: var(--x5-primary);
+  font-size: 32px;
+  font-weight: var(--x5-font-weight-bold);
+  text-align: center;
+  margin-bottom: var(--x5-spacing-xl);
+  position: relative;
+}
+
+.profile-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: var(--x5-secondary);
+  border-radius: var(--x5-radius-sm);
 }
 
 .profile-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2rem 0;
+  margin: var(--x5-spacing-xl) 0;
+  gap: var(--x5-spacing-lg);
 }
 
 .avatar {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  margin-bottom: 1rem;
+  margin-bottom: var(--x5-spacing-md);
+  object-fit: cover;
+  box-shadow: var(--x5-shadow-sm);
 }
 
 .details {
   text-align: left;
   width: 100%;
+  margin-bottom: var(--x5-spacing-md);
 }
 
 .details p {
   margin: 0.5rem 0;
-  font-size: 1.1rem;
+  font-size: var(--x5-font-size-md);
+  color: var(--x5-black);
+}
+
+.button {
+  padding: var(--x5-spacing-sm) var(--x5-spacing-md);
+  border-radius: var(--x5-radius-sm);
+  font-size: var(--x5-font-size-md);
+  font-weight: var(--x5-font-weight-medium);
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  margin-top: 0;
+}
+
+.button-primary {
+  background-color: var(--x5-primary);
+  color: var(--x5-white);
+}
+.button-primary:hover {
+  background-color: var(--x5-hover);
+}
+
+.button-danger {
+  background-color: var(--x5-accent);
+  color: var(--x5-white);
+}
+.button-danger:hover {
+  background-color: #b3000f;
+}
+
+.button-success {
+  background-color: var(--x5-secondary);
+  color: var(--x5-white);
+}
+.button-success:hover {
+  background-color: rgba(149, 193, 31, 0.8);
+}
+
+.form-group {
+  margin-bottom: var(--x5-spacing-md);
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--x5-spacing-xs);
+  color: var(--x5-dark-gray);
+  font-weight: var(--x5-font-weight-medium);
+}
+
+.input {
+  width: 100%;
+  padding: var(--x5-spacing-sm);
+  border: 1px solid var(--x5-light-gray);
+  border-radius: var(--x5-radius-sm);
+  font-size: var(--x5-font-size-md);
+  transition: border-color 0.2s ease;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--x5-primary);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--x5-white);
+  padding: var(--x5-spacing-xl);
+  border-radius: var(--x5-radius-lg);
+  box-shadow: var(--x5-shadow-lg);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-title {
+  color: var(--x5-primary);
+  font-size: var(--x5-font-size-xl);
+  font-weight: var(--x5-font-weight-bold);
+  margin: 0 0 var(--x5-spacing-lg);
+  text-align: center;
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--x5-spacing-md);
+  justify-content: flex-end;
+  margin-top: var(--x5-spacing-lg);
+}
+
+.error {
+  text-align: center;
+  padding: var(--x5-spacing-md);
+  color: var(--x5-accent);
+  background-color: rgba(227, 6, 19, 0.1);
+  border-radius: var(--x5-radius-md);
+  margin: var(--x5-spacing-md) 0;
+  font-size: var(--x5-font-size-md);
+}
+
+.success {
+  text-align: center;
+  padding: var(--x5-spacing-md);
+  color: var(--x5-secondary);
+  background-color: rgba(149, 193, 31, 0.1);
+  border-radius: var(--x5-radius-md);
+  margin: var(--x5-spacing-md) 0;
+  font-size: var(--x5-font-size-md);
 }
 
 .logout-button {
@@ -53,12 +201,6 @@
 
 .logout-button:hover {
   background-color: #c82333;
-}
-
-.profile-title {
-  text-align: center;
-  color: #ff6600;
-  margin-bottom: 20px;
 }
 
 .profile-form {
@@ -82,12 +224,6 @@
 .profile-form input:focus {
   border-color: #d71921;
   outline: none;
-}
-
-.error {
-  color: #d71921;
-  font-size: 14px;
-  margin-top: 5px;
 }
 
 .save-button {

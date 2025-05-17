@@ -39,34 +39,36 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <h1>Вход в систему</h1>
+    <div className="profile-page">
+      <div className="profile-container">
+        <h1 className="profile-title">Вход в систему</h1>
         {error && <div className="error">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
+              className="input"
               value={formData.email}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Пароль:</label>
+            <label htmlFor="password">Пароль</label>
             <input
               type="password"
               id="password"
               name="password"
+              className="input"
               value={formData.password}
               onChange={handleChange}
               required
             />
           </div>
-          <button type="submit" disabled={loading}>
+          <button type="submit" disabled={loading} className="button button-primary">
             {loading ? 'Загрузка...' : 'Войти'}
           </button>
         </form>

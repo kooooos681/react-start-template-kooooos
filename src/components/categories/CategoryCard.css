@@ -1,0 +1,12 @@
+.category-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.category-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}

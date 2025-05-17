@@ -32,7 +32,7 @@ const ModalPage: React.FC = () => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <img src={product.image} alt={product.title} className="modalImage" />
         <h3>{product.title}</h3>
-        <p className="modalDescription">{product.description}</p>
+        <p className="modalDescription">{product.desc}</p>
         <p className="modalPrice">{product.price} ₽</p>
         <button onClick={handleClose}>Закрыть</button>
       </div>

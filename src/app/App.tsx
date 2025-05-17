@@ -3,15 +3,16 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { logout } from '../store/slices/authSlice';
 import LoginPage from '../pages/LoginPage';
-import { ProfilePage } from '../pages/ProfilePage';
 import ProductsPage from '../pages/ProductsPage';
 import BasketPage from '../pages/BasketPage';
 import ModalPage from '../pages/ModalPage';
-import RegisterPageThunk from '../pages/RegisterPageThunk';
-import RegisterPageRTK from '../pages/RegisterPageRTK';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import ErrorBoundary from '../components/ErrorBoundary';
+import { ProfilePage } from '../pages/ProfilePage';
 import './App.css';
+import CategoriesPage from '../pages/CategoriesPage';
+import RegisterPage from "src/pages/RegisterPage";
+import OrdersPage from '../pages/OrdersPage';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -32,22 +33,44 @@ export const App: React.FC = () => {
         <nav className="nav">
           <div className="nav-container">
             <div className="nav-left">
-              <Link to="/" className={isActive('/')}>Главная</Link>
-              <Link to="/products" className={isActive('/products')}>Товары</Link>
-              <Link to="/basket" className={isActive('/basket')}>Корзина</Link>
+              <Link to="/" className={isActive('/')}>
+                Главная
+              </Link>
+              <Link to="/categories" className={isActive('/categories')}>
+                Категории
+              </Link>
+              <Link to="/basket" className={isActive('/basket')}>
+                Корзина
+              </Link>
+              {isAuthenticated && (
+                <Link to="/orders" className={isActive('/orders')}>
+                  Заказы
+                </Link>
+              )}
             </div>
             <div className="nav-right">
               {isAuthenticated ? (
                 <>
-                  <Link to="/profile" className={isActive('/profile')}>Профиль</Link>
-                  {isAdmin && <Link to="/modal" className={isActive('/modal')}>Редактировать товары</Link>}
-                  <button onClick={handleLogout} className="nav-button">Выйти</button>
+                  <Link to="/profile" className={isActive('/profile')}>
+                    Профиль
+                  </Link>
+                  {isAdmin && (
+                    <Link to="/modal" className={isActive('/modal')}>
+                      Редактировать товары
+                    </Link>
+                  )}
+                  <button onClick={handleLogout} className="nav-button">
+                    Выйти
+                  </button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className={isActive('/login')}>Войти</Link>
-                  <Link to="/register" className={isActive('/register')}>Регистрация (Saga)</Link>
-                  <Link to="/register-rtk" className={isActive('/register-rtk')}>Регистрация (RTK)</Link>
+                  <Link to="/login" className={isActive('/login')}>
+                    Войти
+                  </Link>
+                  <Link to="/register" className={isActive('/register')}>
+                    Регистрация
+                  </Link>
                 </>
               )}
             </div>
@@ -58,8 +81,7 @@ export const App: React.FC = () => {
           <div className="main-container">
             <Routes>
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPageThunk />} />
-              <Route path="/register-rtk" element={<RegisterPageRTK />} />
+              <Route path="/register" element={<RegisterPage />} />
               <Route
                 path="/profile"
                 element={
@@ -68,7 +90,7 @@ export const App: React.FC = () => {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/categories" element={<CategoriesPage />} />
               <Route path="/basket" element={<BasketPage />} />
               <Route
                 path="/modal"
@@ -78,7 +100,8 @@ export const App: React.FC = () => {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/" element={<div>Главная страница</div>} />
+              <Route path="/orders" element={<OrdersPage />} />
+              <Route path="/" element={<ProductsPage />} />
             </Routes>
           </div>
         </main>

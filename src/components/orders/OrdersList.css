@@ -1,0 +1,86 @@
+.orders-list {
+  width: 100%;
+  overflow-x: auto;
+}
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg, #fff);
+  box-shadow: var(--shadow-md, 0 2px 8px rgba(0,0,0,0.07));
+  border-radius: var(--radius-md, 12px);
+}
+.orders-table th, .orders-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border, #eee);
+}
+.orders-table th {
+  background: var(--color-primary-light, #f5f5f5);
+  font-weight: 600;
+}
+.orders-table tr:last-child td {
+  border-bottom: none;
+}
+.loader, .empty, .error {
+  padding: 24px;
+  text-align: center;
+  color: var(--color-text, #333);
+}
+.error {
+  color: var(--color-danger, #d32f2f);
+}
+.order-status {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95em;
+  text-transform: capitalize;
+}
+.order-status-pending {
+  background: #fffbe6;
+  color: #bfa100;
+  border: 1px solid #ffe58f;
+}
+.order-status-processing {
+  background: #e6f7ff;
+  color: #1890ff;
+  border: 1px solid #91d5ff;
+}
+.order-status-packaging {
+  background: #f0f5ff;
+  color: #2f54eb;
+  border: 1px solid #adc6ff;
+}
+.order-status-waiting {
+  background: #f9f0ff;
+  color: #722ed1;
+  border: 1px solid #d3adf7;
+}
+.order-status-intransit {
+  background: #e6fffb;
+  color: #13c2c2;
+  border: 1px solid #87e8de;
+}
+.order-status-delivered {
+  background: #f6ffed;
+  color: #389e0d;
+  border: 1px solid #b7eb8f;
+}
+.order-status-return {
+  background: #fff7e6;
+  color: #d46b08;
+  border: 1px solid #ffd591;
+}
+.order-status-cancelled {
+  background: #fff1f0;
+  color: #cf1322;
+  border: 1px solid #ffa39e;
+}
+.button-small {
+  padding: 4px 10px;
+  font-size: 0.95em;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 6px;
+} 

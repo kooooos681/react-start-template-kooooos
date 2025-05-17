@@ -1,17 +1,17 @@
 import { apiClient } from '../client';
-import { API_ENDPOINTS } from '../config';
+import { API_CONFIG } from '../config';
 import { AuthResponse, LoginCredentials, RegisterCredentials } from '../types';
 
 export const authService = {
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    return apiClient.post<AuthResponse>(API_ENDPOINTS.AUTH.LOGIN, credentials);
+    return apiClient.post<AuthResponse>(API_CONFIG.ENDPOINTS.AUTH.LOGIN, credentials);
   },
 
   async register(credentials: RegisterCredentials): Promise<AuthResponse> {
-    return apiClient.post<AuthResponse>(API_ENDPOINTS.AUTH.REGISTER, credentials);
+    return apiClient.post<AuthResponse>(API_CONFIG.ENDPOINTS.AUTH.REGISTER, credentials);
   },
 
   async logout(): Promise<void> {
-    return apiClient.post(API_ENDPOINTS.AUTH.LOGOUT);
+    return apiClient.post(API_CONFIG.ENDPOINTS.AUTH.LOGOUT);
   },
 }; 

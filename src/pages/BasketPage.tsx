@@ -1,45 +1,73 @@
 import React, { useState } from 'react';
 import BasketList from '../components/BasketList/BasketList';
 import '../styles/BasketPage.css';
-import logo from '../components/ItemListContainer/favicon.svg';
+import { useBasket } from '../hooks/useBasket';
+import { ordersService } from '../api/services/orders';
+import { OrderStatus } from '../api/types';
 
 const BasketPage: React.FC = () => {
-  const [basket, setBasket] = useState([
-    { id: 1, title: 'Молоко', price: 100, count: 2 },
-    { id: 2, title: 'Хлеб', price: 50, count: 1 },
-  ]);
+  const { basket, removeFromBasket, incrementCount, decrementCount, total } = useBasket();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleRemove = (id: number) => {
-    setBasket(basket.filter(item => item.id !== id));
+  const handleOrder = async () => {
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+    try {
+      if (!basket.length) {
+        setError('Корзина пуста');
+        setLoading(false);
+        return;
+      }
+      await ordersService.createOrder({
+        products: basket.map(item => ({ id: item.id, quantity: item.count })),
+        status: OrderStatus.PendingConfirmation,
+      });
+      setSuccess('Заказ успешно оформлен!');
+      // Очищаем корзину
+      basket.forEach(item => removeFromBasket(item.id));
+    } catch (e: any) {
+      setError(e.message || 'Ошибка оформления заказа');
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const handleIncrement = (id: number) => {
-    setBasket(basket.map(item => 
-      item.id === id ? { ...item, count: item.count + 1 } : item
-    ));
-  };
-
-  const handleDecrement = (id: number) => {
-    setBasket(basket.map(item => 
-      item.id === id ? { ...item, count: Math.max(0, item.count - 1) } : item
-    ));
-  };
-
-  const total = basket.reduce((sum, item) => sum + item.price * item.count, 0);
 
   return (
-    <div className="cart-container">
-      <h1>Корзина</h1>
-      <BasketList 
-        products={basket.map(item => ({
-          ...item,
-          onRemove: handleRemove,
-          onIncrement: handleIncrement,
-          onDecrement: handleDecrement
-        }))} 
-      />
-      <h3>Итого: {total} ₽</h3>
-    </div>
+    <>
+      <div className="products-header" >
+        <h1 className="products-title">Корзина</h1>
+        <div className="products-actions">
+          <button
+            className="button button-success"
+            onClick={handleOrder}
+            disabled={loading || !basket.length}
+            aria-label="Оформить заказ"
+            style={{width: '100px'}}
+          >
+            Оформить заказ
+          </button>
+        </div>
+      </div>
+      <div className="cart-container">
+        <BasketList
+          products={basket.map(item => ({
+            ...item,
+            title: item.name,
+            onRemove: removeFromBasket,
+            onIncrement: incrementCount,
+            onDecrement: decrementCount
+          }))}
+        />
+        <div className="cart-total">
+          <h3>Итого: {total} ₽</h3>
+        </div>
+        {success && <div className="success" style={{ marginTop: 16 }}>{success}</div>}
+        {error && <div className="error" style={{ marginTop: 16 }}>{error}</div>}
+      </div>
+    </>
   );
 };
 

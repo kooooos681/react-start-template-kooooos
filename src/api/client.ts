@@ -60,6 +60,11 @@ class ApiClient {
     return response.data;
   }
 
+  public async patch<T>(url: string, data?: any): Promise<T> {
+    const response = await this.client.patch<T>(url, data);
+    return response.data;
+  }
+
   public async uploadFile(file: File): Promise<{ url: string }> {
     const formData = new FormData();
     formData.append('file', file);

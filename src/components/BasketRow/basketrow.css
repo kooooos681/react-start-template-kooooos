@@ -1,58 +1,86 @@
 .basketRow {
-    display: flex;
+    display: grid;
+    grid-template-columns: 3fr 1fr auto auto;
+    gap: var(--x5-spacing-md);
     align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    background: #fff;
+    padding: var(--x5-spacing-md);
+    background-color: var(--x5-white);
+    border: 1px solid var(--x5-light-gray);
+    border-radius: var(--x5-radius-sm);
+    transition: all 0.2s ease;
+}
+
+.basketRow:hover {
+    border-color: var(--x5-primary);
+    box-shadow: var(--x5-shadow-sm);
 }
 
 .basketRowTitle {
-    flex: 1;
-    margin-right: 20px;
-    font-weight: 500;
+    font-size: var(--x5-font-size-md);
+    font-weight: var(--x5-font-weight-medium);
+    color: var(--x5-black);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .basketRowPrice {
-    margin-right: 20px;
-    color: #666;
+    font-size: var(--x5-font-size-md);
+    font-weight: var(--x5-font-weight-bold);
+    color: var(--x5-primary);
+    text-align: right;
 }
 
 .basketRowControls {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-right: 20px;
+    gap: var(--x5-spacing-sm);
 }
 
 .basketRowControls button {
-    padding: 5px 10px;
-    background: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    background-color: var(--x5-primary);
+    color: var(--x5-white);
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--x5-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+    padding: 0;
 }
 
 .basketRowControls button:hover {
-    background: #e0e0e0;
+    background-color: var(--x5-hover);
 }
 
 .basketRowControls span {
+    font-size: var(--x5-font-size-md);
+    font-weight: var(--x5-font-weight-medium);
+    color: var(--x5-black);
     min-width: 30px;
     text-align: center;
 }
 
 .basketRowRemove {
-    padding: 8px 16px;
-    background: #ff4444;
-    color: white;
+    background-color: transparent;
+    color: var(--x5-accent);
     border: none;
-    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--x5-radius-sm);
     cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .basketRowRemove:hover {
-    background: #ff0000;
+    background-color: rgba(227, 6, 19, 0.1);
 }
 
 .basket-image img {
@@ -94,4 +122,24 @@
     color: #ff671f;
     min-width: 100px;
     text-align: right;
+}
+
+@media (max-width: 768px) {
+    .basketRow {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        gap: var(--x5-spacing-sm);
+    }
+
+    .basketRowTitle {
+        grid-column: 1 / -1;
+    }
+
+    .basketRowPrice {
+        text-align: left;
+    }
+
+    .basketRowControls {
+        justify-self: end;
+    }
 }

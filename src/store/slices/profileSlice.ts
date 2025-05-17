@@ -1,8 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { User } from '../baseTypes';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { apiClient } from 'src/api/client';
+
+export type Profile = {
+  id: string;
+  name: string;
+  email: string;
+  signUpDate: string;
+  commandId?: string;
+};
 
 interface ProfileState {
-  data: User | null;
+  data: Profile | null;
   loading: boolean;
   error: string | null;
 }
@@ -13,36 +21,40 @@ const initialState: ProfileState = {
   error: null,
 };
 
+export const fetchProfile = createAsyncThunk<Profile>(
+  'profile/fetchProfile',
+  async () => {
+    return await apiClient.get<Profile>('/profile');
+  }
+);
+
 const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    fetchProfileRequest: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    fetchProfileSuccess: (state, action: PayloadAction<User>) => {
-      state.data = action.payload;
-      state.loading = false;
-      state.error = null;
-    },
-    fetchProfileFailure: (state, action: PayloadAction<string>) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
     clearProfile: (state) => {
       state.data = null;
       state.loading = false;
       state.error = null;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Ошибка загрузки профиля';
+      });
+  },
 });
 
-export const {
-  fetchProfileRequest,
-  fetchProfileSuccess,
-  fetchProfileFailure,
-  clearProfile,
-} = profileSlice.actions;
+export const { clearProfile } = profileSlice.actions;
 
 export default profileSlice.reducer; 

@@ -45,7 +45,16 @@ export interface CartItem {
   quantity: number;
 }
 
-export type OrderStatus = 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'CANCELLED';
+export enum OrderStatus {
+  PendingConfirmation = 'pending_confirmation',
+  Processing = 'processing',
+  Packaging = 'packaging',
+  WaitingForDelivery = 'waiting_for_delivery',
+  InTransit = 'in_transit',
+  Delivered = 'delivered',
+  ReturnRequested = 'return_requested',
+  OrderCancelled = 'order_cancelled',
+}
 
 export interface LoginCredentials {
   email: string;

@@ -29,6 +29,7 @@
     "rules": {
         "@typescript-eslint/no-var-requires": 0,
         "@typescript-eslint/triple-slash-reference": "error",
+        "prettier/prettier": 0,
         "react/jsx-uses-vars": "error",
         "react/jsx-uses-react": "error"
     },
