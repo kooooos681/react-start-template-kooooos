@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Order, OrderStatus } from '../api/types';
 import { apiClient } from '../api/client';
 import { API_CONFIG } from '../api/config';
+import { ordersService } from "src/api/services";
 
 export type OrdersFilters = {
   productIds?: string[];
@@ -90,6 +91,7 @@ export function useOrders(initialFilters: OrdersFilters = {}) {
   // Удаление заказа из локального состояния
   const deleteOrderInState = (orderId: string) => {
     setOrders((prev) => prev.filter(order => order.id !== orderId));
+    ordersService.deleteOrder(orderId);
   };
 
   return {

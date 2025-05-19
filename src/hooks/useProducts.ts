@@ -30,10 +30,8 @@ export const useProducts = (limit = 20) => {
     try {
       setRestLoading(true);
       const response = await productsService.getProducts({
-        pagination: {
-          pageSize: limit,
-          pageNumber: currentPage,
-        },
+        pageSize: limit,
+        pageNumber: currentPage,
       });
       if (!response.data || !Array.isArray(response.data)) {
         console.error('Invalid response format:', response);

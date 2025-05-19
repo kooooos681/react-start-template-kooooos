@@ -12,6 +12,8 @@ export interface Sorting {
 export interface BaseFilters {
   ids?: string[];
   name?: string;
+  pageSize?: number;
+  pageNumber?: number;
   pagination?: {
     pageSize?: number;
     pageNumber?: number;

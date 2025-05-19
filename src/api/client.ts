@@ -1,4 +1,5 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
+import type { AxiosInstance } from 'axios';
 
 const API_BASE_URL = 'http://19429ba06ff2.vps.myjino.ru/api';
 
