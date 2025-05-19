@@ -5,6 +5,7 @@ import editButton from 'src/icons/edit_button.svg';
 import EditProductModal, { EditedItem } from "src/components/product/EditProductModal";
 import { CreateProductInput, UpdateProductInput, useProducts } from "src/hooks/useProducts";
 import { useBasket } from "../hooks/useBasket";
+import { useCategories } from "src/hooks/useCategories";
 
 export interface Item {
   id: string;
@@ -30,6 +31,10 @@ const ProductsPage: React.FC = () => {
   const [showModalAddProduct, setShowModalAddProduct] = useState(false);
   const [showModalDetail, setShowModalDetail] = useState(false);
   const observerTarget = useRef<HTMLDivElement>(null);
+  const { categories } = useCategories(100);
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [sortField, setSortField] = useState('createdAt');
+  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('DESC');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -98,6 +103,26 @@ const ProductsPage: React.FC = () => {
     deleteProduct(selectedItem.id);
   };
 
+  // Фильтрация и сортировка товаров
+  const filteredProducts = products
+    .filter(item => !categoryFilter || item.categoryId === categoryFilter)
+    .sort((a, b) => {
+      if (sortField === 'price') {
+        return sortOrder === 'ASC' ? a.price - b.price : b.price - a.price;
+      }
+      if (sortField === 'name') {
+        return sortOrder === 'ASC'
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      }
+      if (sortField === 'createdAt') {
+        return sortOrder === 'ASC'
+          ? new Date(a.category.createdAt).getTime() - new Date(b.category.createdAt).getTime()
+          : new Date(b.category.createdAt).getTime() - new Date(a.category.createdAt).getTime();
+      }
+      return 0;
+    });
+
   if (error) {
     return <div className="error">{error}</div>;
   }
@@ -115,9 +140,26 @@ const ProductsPage: React.FC = () => {
           </button>
         </div>
       </div>
+      <div style={{ display: 'flex', gap: 16, marginBottom: 24 }}>
+        <select value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)} className="input">
+          <option value="">Все категории</option>
+          {categories.map(cat => (
+            <option key={cat.id} value={cat.id}>{cat.name}</option>
+          ))}
+        </select>
+        <select value={sortField} onChange={e => setSortField(e.target.value)} className="input">
+          <option value="createdAt">По дате</option>
+          <option value="price">По цене</option>
+          <option value="name">По названию</option>
+        </select>
+        <select value={sortOrder} onChange={e => setSortOrder(e.target.value as 'ASC' | 'DESC')} className="input">
+          <option value="DESC">По убыванию</option>
+          <option value="ASC">По возрастанию</option>
+        </select>
+      </div>
       <div className="itemList">
         <ul className="itemListItems">
-          {products.map((item) => (
+          {filteredProducts.map((item) => (
             <li key={item.id} className="itemListItem">
               <img src={item.photo} alt={item.name} className="itemImage" />
               <div className="itemContent">
