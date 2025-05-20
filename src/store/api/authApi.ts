@@ -27,18 +27,18 @@ export const authApi = createApi({
     baseUrl: 'http://19429ba06ff2.vps.myjino.ru/api',
   }),
   endpoints: (builder) => ({
-    register: builder.mutation<RegistrationResponse, RegistrationRequest>({
-      query: (credentials) => ({
-        url: '/signup',
-        method: 'POST',
-        body: credentials,
-      }),
-      transformErrorResponse: (baseQueryReturnValue: FetchBaseQueryError) => {
-        const errorData = baseQueryReturnValue.data as ErrorResponse;
-        return errorData.errors?.[0]?.message || 'Registration failed';
-      },
-    }),
+    // register: builder.mutation<RegistrationResponse, RegistrationRequest>({
+    //   query: (credentials) => ({
+    //     url: '/signup',
+    //     method: 'POST',
+    //     body: credentials,
+    //   }),
+    //   transformErrorResponse: (baseQueryReturnValue: FetchBaseQueryError) => {
+    //     const errorData = baseQueryReturnValue.data as ErrorResponse;
+    //     return errorData.errors?.[0]?.message || 'Registration failed';
+    //   },
+    // }),
   }),
 });
 
-export const { useRegisterMutation } = authApi; 
+// export const { useRegisterMutation } = authApi; 

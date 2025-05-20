@@ -7,37 +7,90 @@
 }
 
 .profile-container {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 600px;
-  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.profile-info {
+.profile-content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 2rem 0;
+  gap: 40px;
+  margin-top: 20px;
 }
 
-.avatar {
-  width: 150px;
-  height: 150px;
+.profile-avatar {
+  position: relative;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
-  margin-bottom: 1rem;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.details {
-  text-align: left;
+.profile-avatar img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.details p {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.profile-avatar:hover .avatar-overlay {
+  opacity: 1;
+}
+
+.avatar-overlay span {
+  color: white;
+  font-size: 14px;
+}
+
+.profile-form {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #e53e3e;
+  background: #fff5f5;
+  border-radius: 8px;
+  margin: 20px 0;
 }
 
 .logout-button {
@@ -61,33 +114,14 @@
   margin-bottom: 20px;
 }
 
-.profile-form {
-  display: flex;
-  flex-direction: column;
-}
-
 .profile-form label {
   margin-top: 10px;
   font-weight: bold;
 }
 
-.profile-form input {
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  margin-top: 5px;
-}
-
 .profile-form input:focus {
   border-color: #d71921;
   outline: none;
-}
-
-.error {
-  color: #d71921;
-  font-size: 14px;
-  margin-top: 5px;
 }
 
 .save-button {

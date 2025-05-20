@@ -1,44 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import BasketList from '../components/BasketList/BasketList';
+import { useCart } from '../hooks/useCart';
 import '../styles/BasketPage.css';
-import logo from '../components/ItemListContainer/favicon.svg';
 
-const BasketPage: React.FC = () => {
-  const [basket, setBasket] = useState([
-    { id: 1, title: 'Молоко', price: 100, count: 2 },
-    { id: 2, title: 'Хлеб', price: 50, count: 1 },
-  ]);
+export const BasketPage: React.FC = () => {
+  const navigate = useNavigate();
+  const { cartItems, loading, error } = useCart();
 
-  const handleRemove = (id: number) => {
-    setBasket(basket.filter(item => item.id !== id));
+  // TODO: реализовать удаление/изменение количества через GraphQL
+
+  const handleCheckout = async () => {
+    // TODO: оформить заказ через GraphQL, если требуется
+    navigate('/orders');
   };
 
-  const handleIncrement = (id: number) => {
-    setBasket(basket.map(item => 
-      item.id === id ? { ...item, count: item.count + 1 } : item
-    ));
-  };
-
-  const handleDecrement = (id: number) => {
-    setBasket(basket.map(item => 
-      item.id === id ? { ...item, count: Math.max(0, item.count - 1) } : item
-    ));
-  };
-
-  const total = basket.reduce((sum, item) => sum + item.price * item.count, 0);
+  const total = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="cart-container">
+    <div className="basket-page">
       <h1>Корзина</h1>
+      {error && <div className="error">{error.message}</div>}
       <BasketList 
-        products={basket.map(item => ({
-          ...item,
-          onRemove: handleRemove,
-          onIncrement: handleIncrement,
-          onDecrement: handleDecrement
-        }))} 
+        products={cartItems.map(item => ({
+          id: item.product.id,
+          title: item.product.name,
+          price: 0, // TODO: добавить цену, если есть в product
+          count: item.quantity,
+          onRemove: () => {}, // TODO: реализовать удаление
+          onIncrement: () => {}, // TODO: реализовать увеличение
+          onDecrement: () => {}, // TODO: реализовать уменьшение
+        }))}
       />
-      <h3>Итого: {total} ₽</h3>
+      <div className="basket-total">
+        <p>Итого: {total} товаров</p>
+        <button 
+          className="button button-primary" 
+          onClick={handleCheckout}
+          disabled={loading || cartItems.length === 0}
+        >
+          {loading ? 'Оформление...' : 'Оформить заказ'}
+        </button>
+      </div>
     </div>
   );
 };

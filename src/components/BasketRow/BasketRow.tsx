@@ -2,13 +2,13 @@ import React, { memo } from 'react';
 import './basketrow.css';
 
 export interface BasketRowProps {
-  id: number;
+  id: string;
   title: string;
   price: number;
   count: number;
-  onRemove: (id: number) => void;
-  onIncrement: (id: number) => void;
-  onDecrement: (id: number) => void;
+  onRemove: (id: string) => void;
+  onIncrement: (id: string) => void;
+  onDecrement: (id: string) => void;
 }
 
 const BasketRow: React.FC<BasketRowProps> = ({ id, title, price, count, onRemove, onIncrement, onDecrement }) => {

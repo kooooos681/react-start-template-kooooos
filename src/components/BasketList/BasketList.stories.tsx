@@ -13,15 +13,15 @@ const meta: Meta<typeof BasketList> = {
 export default meta;
 type Story = StoryObj<typeof BasketList>;
 
-const handleRemove = (id: number) => console.log('Remove:', id);
-const handleIncrement = (id: number) => console.log('Increment:', id);
-const handleDecrement = (id: number) => console.log('Decrement:', id);
+const handleRemove = (id: string) => console.log('Remove', id);
+const handleIncrement = (id: string) => console.log('Increment', id);
+const handleDecrement = (id: string) => console.log('Decrement', id);
 
 export const Default: Story = {
   args: {
     products: [
       {
-        id: 1,
+        id: '1',
         title: 'Молоко',
         price: 100,
         count: 2,
@@ -30,7 +30,7 @@ export const Default: Story = {
         onDecrement: handleDecrement,
       },
       {
-        id: 2,
+        id: '2',
         title: 'Хлеб',
         price: 50,
         count: 1,

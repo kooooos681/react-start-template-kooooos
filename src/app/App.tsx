@@ -3,12 +3,11 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { logout } from '../store/slices/authSlice';
 import LoginPage from '../pages/LoginPage';
-import { ProfilePage } from '../pages/ProfilePage';
+import ProfilePage from '../pages/ProfilePage';
 import ProductsPage from '../pages/ProductsPage';
 import BasketPage from '../pages/BasketPage';
 import ModalPage from '../pages/ModalPage';
-import RegisterPageThunk from '../pages/RegisterPageThunk';
-import RegisterPageRTK from '../pages/RegisterPageRTK';
+import RegisterPage from '../pages/RegisterPage';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import ErrorBoundary from '../components/ErrorBoundary';
 import './App.css';
@@ -32,22 +31,39 @@ export const App: React.FC = () => {
         <nav className="nav">
           <div className="nav-container">
             <div className="nav-left">
-              <Link to="/" className={isActive('/')}>Главная</Link>
-              <Link to="/products" className={isActive('/products')}>Товары</Link>
-              <Link to="/basket" className={isActive('/basket')}>Корзина</Link>
+              <Link to="/" className={isActive('/')}>
+                Главная
+              </Link>
+              <Link to="/products" className={isActive('/products')}>
+                Товары
+              </Link>
+              <Link to="/basket" className={isActive('/basket')}>
+                Корзина
+              </Link>
             </div>
             <div className="nav-right">
               {isAuthenticated ? (
                 <>
-                  <Link to="/profile" className={isActive('/profile')}>Профиль</Link>
-                  {isAdmin && <Link to="/modal" className={isActive('/modal')}>Редактировать товары</Link>}
-                  <button onClick={handleLogout} className="nav-button">Выйти</button>
+                  <Link to="/profile" className={isActive('/profile')}>
+                    Профиль
+                  </Link>
+                  {isAdmin && (
+                    <Link to="/modal" className={isActive('/modal')}>
+                      Редактировать товары
+                    </Link>
+                  )}
+                  <button onClick={handleLogout} className="nav-button">
+                    Выйти
+                  </button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className={isActive('/login')}>Войти</Link>
-                  <Link to="/register" className={isActive('/register')}>Регистрация (Saga)</Link>
-                  <Link to="/register-rtk" className={isActive('/register-rtk')}>Регистрация (RTK)</Link>
+                  <Link to="/login" className={isActive('/login')}>
+                    Войти
+                  </Link>
+                  <Link to="/register" className={isActive('/register')}>
+                    Регистрация
+                  </Link>
                 </>
               )}
             </div>
@@ -58,8 +74,7 @@ export const App: React.FC = () => {
           <div className="main-container">
             <Routes>
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPageThunk />} />
-              <Route path="/register-rtk" element={<RegisterPageRTK />} />
+              <Route path="/register" element={<RegisterPage />} />
               <Route
                 path="/profile"
                 element={
