@@ -7,7 +7,6 @@ import profileReducer from './slices/profileSlice';
 import cartReducer from './slices/cartSlice';
 import productsReducer from './slices/productsSlice';
 import registerSagaReducer from './slices/registerSagaSlice';
-import { logger } from './middleware/logger';
 import type { RootState } from './types';
 import { authApi } from './api/authApi';
 import { registerApi } from './api/registerApi';
@@ -28,7 +27,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(sagaMiddleware, logger, authApi.middleware, registerApi.middleware),
+    }).concat(sagaMiddleware, authApi.middleware, registerApi.middleware),
 });
 
 sagaMiddleware.run(rootSaga);

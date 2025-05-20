@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/named
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 
 interface RegistrationRequest {
