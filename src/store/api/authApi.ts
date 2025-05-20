@@ -25,7 +25,7 @@ interface ErrorResponse {
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://19429ba06ff2.vps.myjino.ru/api',
+    baseUrl: 'https://19429ba06ff2.vps.myjino.ru/api',
   }),
   endpoints: (builder) => ({
     register: builder.mutation<RegistrationResponse, RegistrationRequest>({

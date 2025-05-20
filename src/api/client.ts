@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios';
 
-const API_BASE_URL = 'http://19429ba06ff2.vps.myjino.ru/api';
+const API_BASE_URL = 'https://19429ba06ff2.vps.myjino.ru/api';
 
 class ApiClient {
   private client: AxiosInstance;

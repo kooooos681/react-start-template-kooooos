@@ -11,7 +11,7 @@ interface RegisterResponse {
 
 export const registerApi = createApi({
   reducerPath: 'registerApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://19429ba06ff2.vps.myjino.ru/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://19429ba06ff2.vps.myjino.ru/api' }),
   endpoints: (builder) => ({
     register: builder.mutation<RegisterResponse, RegisterRequest>({
       query: (credentials) => ({

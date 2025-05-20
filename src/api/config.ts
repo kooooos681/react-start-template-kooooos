@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  BASE_URL: 'http://19429ba06ff2.vps.myjino.ru/api',
+  BASE_URL: 'https://19429ba06ff2.vps.myjino.ru/api',
   ENDPOINTS: {
     AUTH: {
       LOGIN: '/signin',

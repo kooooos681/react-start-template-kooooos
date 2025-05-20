@@ -1,6 +1,7 @@
 {
   "name": "react-start-template-kooooos",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "description": "Start repo with required configuration",
   "main": "src/index.tsx",
