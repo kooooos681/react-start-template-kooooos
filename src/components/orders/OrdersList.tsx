@@ -87,12 +87,12 @@ export const OrdersList: React.FC<OrdersListProps> = ({ orders, loading, error, 
                           <path d="M0,0 L6,3 L0,6 L2,3 Z" fill="#ff4d4f" />
                         </marker>
                       </defs>
-                      <rect x="6" y="6" width="20" height="12" rx="2.5" fill="var(--x5-primary)" stroke="currentColor" strokeWidth="1.5"/>
+                      <rect x="6" y="6" width="20" height="12" rx="2.5" fill="var(--shop-primary)" stroke="currentColor" strokeWidth="1.5"/>
                       <rect x="6" y="18" width="20" height="3" rx="1.5" fill="#2d3a4a"/>
                       <rect x="9" y="10" width="4" height="4" rx="1" fill="#ff6f91"/>
                       <rect x="15" y="11" width="8" height="2" rx="1" fill="white"/>
                       <rect x="15" y="14" width="8" height="2" rx="1" fill="white"/>
-                      <rect x="22" y="30" width="20" height="12" rx="2.5" fill="var(--x5-primary)" stroke="currentColor" strokeWidth="1.5"/>
+                      <rect x="22" y="30" width="20" height="12" rx="2.5" fill="var(--shop-primary)" stroke="currentColor" strokeWidth="1.5"/>
                       <rect x="22" y="42" width="20" height="3" rx="1.5" fill="#2d3a4a"/>
                       <rect x="25" y="34" width="6" height="2" rx="1" fill="white"/>
                       <rect x="25" y="37" width="2" height="6" rx="1" fill="#7ed957"/>

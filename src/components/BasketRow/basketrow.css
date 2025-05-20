@@ -1,49 +1,49 @@
 .basketRow {
     display: grid;
     grid-template-columns: 3fr 1fr auto auto;
-    gap: var(--x5-spacing-md);
+    gap: var(--shop-spacing-md);
     align-items: center;
-    padding: var(--x5-spacing-md);
-    background-color: var(--x5-white);
-    border: 1px solid var(--x5-light-gray);
-    border-radius: var(--x5-radius-sm);
+    padding: var(--shop-spacing-md);
+    background-color: var(--shop-white);
+    border: 1px solid var(--shop-light-gray);
+    border-radius: var(--shop-radius-sm);
     transition: all 0.2s ease;
 }
 
 .basketRow:hover {
-    border-color: var(--x5-primary);
-    box-shadow: var(--x5-shadow-sm);
+    border-color: var(--shop-primary);
+    box-shadow: var(--shop-shadow-sm);
 }
 
 .basketRowTitle {
-    font-size: var(--x5-font-size-md);
-    font-weight: var(--x5-font-weight-medium);
-    color: var(--x5-black);
+    font-size: var(--shop-font-size-md);
+    font-weight: var(--shop-font-weight-medium);
+    color: var(--shop-black);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .basketRowPrice {
-    font-size: var(--x5-font-size-md);
-    font-weight: var(--x5-font-weight-bold);
-    color: var(--x5-primary);
+    font-size: var(--shop-font-size-md);
+    font-weight: var(--shop-font-weight-bold);
+    color: var(--shop-primary);
     text-align: right;
 }
 
 .basketRowControls {
     display: flex;
     align-items: center;
-    gap: var(--x5-spacing-sm);
+    gap: var(--shop-spacing-sm);
 }
 
 .basketRowControls button {
-    background-color: var(--x5-primary);
-    color: var(--x5-white);
+    background-color: var(--shop-primary);
+    color: var(--shop-white);
     border: none;
     width: 24px;
     height: 24px;
-    border-radius: var(--x5-radius-sm);
+    border-radius: var(--shop-radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,24 +53,24 @@
 }
 
 .basketRowControls button:hover {
-    background-color: var(--x5-hover);
+    background-color: var(--shop-hover);
 }
 
 .basketRowControls span {
-    font-size: var(--x5-font-size-md);
-    font-weight: var(--x5-font-weight-medium);
-    color: var(--x5-black);
+    font-size: var(--shop-font-size-md);
+    font-weight: var(--shop-font-weight-medium);
+    color: var(--shop-black);
     min-width: 30px;
     text-align: center;
 }
 
 .basketRowRemove {
     background-color: transparent;
-    color: var(--x5-accent);
+    color: var(--shop-accent);
     border: none;
     width: 24px;
     height: 24px;
-    border-radius: var(--x5-radius-sm);
+    border-radius: var(--shop-radius-sm);
     cursor: pointer;
     transition: all 0.2s ease;
     padding: 0;
@@ -128,7 +128,7 @@
     .basketRow {
         grid-template-columns: 1fr auto;
         grid-template-rows: auto auto;
-        gap: var(--x5-spacing-sm);
+        gap: var(--shop-spacing-sm);
     }
 
     .basketRowTitle {

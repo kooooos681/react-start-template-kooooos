@@ -97,7 +97,7 @@ const OrdersPage: React.FC = () => {
             textAlign: 'center', 
             fontSize: '1.05em', 
             fontWeight: 600, 
-            background: 'var(--x5-primary, #ff671f)', 
+            background: 'var(--shop-primary, #ff671f)', 
             color: 'white', 
             borderRadius: 12, 
             padding: '4px 16px', 

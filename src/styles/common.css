@@ -1,9 +1,9 @@
 @import './variables.css';
 
 body {
-  font-family: var(--x5-font-family);
-  color: var(--x5-black);
-  background-color: var(--x5-white);
+  font-family: var(--shop-font-family);
+  color: var(--shop-black);
+  background-color: var(--shop-white);
   line-height: 1.5;
   margin: 0;
   padding: 0;
@@ -13,10 +13,10 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--x5-spacing-sm) var(--x5-spacing-md);
-  border-radius: var(--x5-radius-sm);
-  font-size: var(--x5-font-size-md);
-  font-weight: var(--x5-font-weight-medium);
+  padding: var(--shop-spacing-sm) var(--shop-spacing-md);
+  border-radius: var(--shop-radius-sm);
+  font-size: var(--shop-font-size-md);
+  font-weight: var(--shop-font-weight-medium);
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
@@ -24,21 +24,21 @@ body {
 }
 
 .button-primary {
-  background-color: var(--x5-primary);
-  color: var(--x5-white);
+  background-color: var(--shop-primary);
+  color: var(--shop-white);
 }
 
 .button-primary:hover {
-  background-color: var(--x5-hover);
+  background-color: var(--shop-hover);
 }
 
 .button-primary:active {
-  background-color: var(--x5-active);
+  background-color: var(--shop-active);
 }
 
 .button-secondary {
-  background-color: var(--x5-secondary);
-  color: var(--x5-white);
+  background-color: var(--shop-secondary);
+  color: var(--shop-white);
 }
 
 .button-secondary:hover {
@@ -46,30 +46,30 @@ body {
 }
 
 .button-success {
-  background-color: var(--x5-secondary);
-  color: var(--x5-white);
+  background-color: var(--shop-secondary);
+  color: var(--shop-white);
 }
 
 .button-danger {
-  background-color: var(--x5-accent);
-  color: var(--x5-white);
+  background-color: var(--shop-accent);
+  color: var(--shop-white);
 }
 
 .button-small {
-  padding: var(--x5-spacing-xs) var(--x5-spacing-sm);
-  font-size: var(--x5-font-size-sm);
+  padding: var(--shop-spacing-xs) var(--shop-spacing-sm);
+  font-size: var(--shop-font-size-sm);
 }
 
 .button:disabled {
-  background-color: var(--x5-disabled);
+  background-color: var(--shop-disabled);
   cursor: not-allowed;
 }
 
 .input {
-  padding: var(--x5-spacing-sm);
-  border: 1px solid var(--x5-light-gray);
-  border-radius: var(--x5-radius-sm);
-  font-size: var(--x5-font-size-md);
+  padding: var(--shop-spacing-sm);
+  border: 1px solid var(--shop-light-gray);
+  border-radius: var(--shop-radius-sm);
+  font-size: var(--shop-font-size-md);
   width: 100%;
   box-sizing: border-box;
   transition: border-color 0.2s ease;
@@ -77,19 +77,19 @@ body {
 
 .input:focus {
   outline: none;
-  border-color: var(--x5-primary);
+  border-color: var(--shop-primary);
 }
 
 .input:disabled {
-  background-color: var(--x5-disabled);
+  background-color: var(--shop-disabled);
   cursor: not-allowed;
 }
 
 .card {
-  background-color: var(--x5-white);
-  border-radius: var(--x5-radius-md);
-  box-shadow: var(--x5-shadow-sm);
-  padding: var(--x5-spacing-md);
+  background-color: var(--shop-white);
+  border-radius: var(--shop-radius-md);
+  box-shadow: var(--shop-shadow-sm);
+  padding: var(--shop-spacing-md);
 }
 
 .modal-overlay {
@@ -106,10 +106,10 @@ body {
 }
 
 .modal-content {
-  background-color: var(--x5-white);
-  border-radius: var(--x5-radius-md);
-  padding: var(--x5-spacing-lg);
-  box-shadow: var(--x5-shadow-lg);
+  background-color: var(--shop-white);
+  border-radius: var(--shop-radius-md);
+  padding: var(--shop-spacing-lg);
+  box-shadow: var(--shop-shadow-lg);
   max-width: 500px;
   width: 100%;
   max-height: 90vh;
@@ -117,46 +117,46 @@ body {
 }
 
 .nav {
-  background-color: var(--x5-primary);
-  padding: var(--x5-spacing-md) 0;
+  background-color: var(--shop-primary);
+  padding: var(--shop-spacing-md) 0;
 }
 
 .nav a {
-  color: var(--x5-white);
+  color: var(--shop-white);
   text-decoration: none;
-  padding: var(--x5-spacing-sm) var(--x5-spacing-md);
-  border-radius: var(--x5-radius-sm);
+  padding: var(--shop-spacing-sm) var(--shop-spacing-md);
+  border-radius: var(--shop-radius-sm);
   transition: background-color 0.2s ease;
 }
 
 .nav a:hover {
-  background-color: var(--x5-hover);
+  background-color: var(--shop-hover);
 }
 
 .nav a.active {
-  background-color: var(--x5-active);
+  background-color: var(--shop-active);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--x5-black);
-  margin: 0 0 var(--x5-spacing-md) 0;
+  color: var(--shop-black);
+  margin: 0 0 var(--shop-spacing-md) 0;
 }
 
-h1 { font-size: var(--x5-font-size-xl); }
-h2 { font-size: calc(var(--x5-font-size-xl) - 2px); }
-h3 { font-size: var(--x5-font-size-lg); }
+h1 { font-size: var(--shop-font-size-xl); }
+h2 { font-size: calc(var(--shop-font-size-xl) - 2px); }
+h3 { font-size: var(--shop-font-size-lg); }
 
 .error {
-  color: var(--x5-accent);
-  padding: var(--x5-spacing-sm);
-  border-radius: var(--x5-radius-sm);
+  color: var(--shop-accent);
+  padding: var(--shop-spacing-sm);
+  border-radius: var(--shop-radius-sm);
   background-color: rgba(227, 6, 19, 0.1);
 }
 
 .loading {
-  color: var(--x5-primary);
+  color: var(--shop-primary);
   text-align: center;
-  padding: var(--x5-spacing-lg);
+  padding: var(--shop-spacing-lg);
 }
 
 /* Стили для контейнеров */
@@ -253,11 +253,11 @@ select.input {
   -moz-appearance: none;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L0 0h12z' fill='%234D4D4D'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right var(--x5-spacing-sm) center;
-  padding-right: var(--x5-spacing-xl);
-  border: 1px solid var(--x5-light-gray);
-  border-radius: var(--x5-radius-sm);
-  font-size: var(--x5-font-size-md);
+  background-position: right var(--shop-spacing-sm) center;
+  padding-right: var(--shop-spacing-xl);
+  border: 1px solid var(--shop-light-gray);
+  border-radius: var(--shop-radius-sm);
+  font-size: var(--shop-font-size-md);
   width: 100%;
   box-sizing: border-box;
   transition: border-color 0.2s ease;
@@ -265,5 +265,5 @@ select.input {
 
 select.input:focus {
   outline: none;
-  border-color: var(--x5-primary);
+  border-color: var(--shop-primary);
 }

@@ -1,46 +1,46 @@
 :root {
-  /* Основные цвета X5 Group */
-  --x5-primary: #2E3092;      /* Основной синий */
-  --x5-secondary: #95C11F;    /* Зеленый */
-  --x5-accent: #E30613;       /* Красный */
-  --x5-yellow: #FFD100;       /* Желтый */
+  /* Основные цвета магазина */
+  --shop-primary: #2E3092;      /* Основной синий */
+  --shop-secondary: #95C11F;    /* Зеленый */
+  --shop-accent: #E30613;       /* Красный */
+  --shop-yellow: #FFD100;       /* Желтый */
   
   /* Нейтральные цвета */
-  --x5-black: #1A1A1A;
-  --x5-dark-gray: #4D4D4D;
-  --x5-gray: #808080;
-  --x5-light-gray: #E6E6E6;
-  --x5-white: #FFFFFF;
+  --shop-black: #1A1A1A;
+  --shop-dark-gray: #4D4D4D;
+  --shop-gray: #808080;
+  --shop-light-gray: #E6E6E6;
+  --shop-white: #FFFFFF;
 
   /* Состояния */
-  --x5-hover: rgba(46, 48, 146, 0.8);  /* Синий с прозрачностью */
-  --x5-active: rgba(46, 48, 146, 0.9);
-  --x5-disabled: var(--x5-light-gray);
+  --shop-hover: rgba(46, 48, 146, 0.8);  /* Синий с прозрачностью */
+  --shop-active: rgba(46, 48, 146, 0.9);
+  --shop-disabled: var(--shop-light-gray);
 
   /* Тени */
-  --x5-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --x5-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
-  --x5-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shop-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shop-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shop-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
 
   /* Скругления */
-  --x5-radius-sm: 4px;
-  --x5-radius-md: 8px;
-  --x5-radius-lg: 12px;
+  --shop-radius-sm: 4px;
+  --shop-radius-md: 8px;
+  --shop-radius-lg: 12px;
 
   /* Отступы */
-  --x5-spacing-xs: 4px;
-  --x5-spacing-sm: 8px;
-  --x5-spacing-md: 16px;
-  --x5-spacing-lg: 24px;
-  --x5-spacing-xl: 32px;
+  --shop-spacing-xs: 4px;
+  --shop-spacing-sm: 8px;
+  --shop-spacing-md: 16px;
+  --shop-spacing-lg: 24px;
+  --shop-spacing-xl: 32px;
 
   /* Типографика */
-  --x5-font-family: 'Arial', sans-serif;
-  --x5-font-size-sm: 14px;
-  --x5-font-size-md: 16px;
-  --x5-font-size-lg: 18px;
-  --x5-font-size-xl: 24px;
-  --x5-font-weight-normal: 400;
-  --x5-font-weight-medium: 500;
-  --x5-font-weight-bold: 700;
+  --shop-font-family: 'Arial', sans-serif;
+  --shop-font-size-sm: 14px;
+  --shop-font-size-md: 16px;
+  --shop-font-size-lg: 18px;
+  --shop-font-size-xl: 24px;
+  --shop-font-weight-normal: 400;
+  --shop-font-weight-medium: 500;
+  --shop-font-weight-bold: 700;
 } 

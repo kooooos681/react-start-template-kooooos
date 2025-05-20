@@ -1,7 +1,7 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    font-family: var(--shop-font-family, Arial, sans-serif);
+    background-color: var(--shop-background, #f5f5f5);
 }
 
 .app {
@@ -20,21 +20,33 @@ body {
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ff6600;
+    display: flex;
+    align-items: center;
+    gap: var(--shop-spacing-sm);
+    font-size: var(--shop-font-size-xl);
+    font-weight: var(--shop-font-weight-bold);
+    color: var(--shop-primary);
+    text-decoration: none;
+}
+
+.logo svg {
+    width: 32px;
+    height: 32px;
 }
 
 .nav {
-    background-color: white;
-    border-bottom: 1px solid #ddd;
-    padding: 12px 0;
+    background-color: var(--shop-white);
+    box-shadow: var(--shop-shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--shop-light-gray);
 }
 
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: var(--shop-spacing-md) var(--shop-spacing-lg);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,67 +55,112 @@ body {
 .nav-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--shop-spacing-md);
 }
 
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--shop-spacing-md);
 }
 
 .nav a {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: var(--shop-spacing-xs);
+    padding: var(--shop-spacing-sm) var(--shop-spacing-md);
+    color: var(--shop-dark-gray);
     text-decoration: none;
-    display: inline-block;
+    font-size: var(--shop-font-size-md);
+    font-weight: var(--shop-font-weight-medium);
+    border-radius: var(--shop-radius-md);
+    transition: all 0.2s ease;
+    position: relative;
 }
 
 .nav a:hover {
-    background-color: #0056b3;
+    color: var(--shop-primary);
+    background-color: rgba(255, 103, 31, 0.1);
 }
 
 .nav a.active {
-    background-color: #0056b3;
+    color: var(--shop-primary);
+    background-color: rgba(255, 103, 31, 0.1);
+    font-weight: var(--shop-font-weight-bold);
+}
+
+.nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background-color: var(--shop-primary);
+    border-radius: var(--shop-radius-sm);
 }
 
 .nav-button {
-    background: none;
-    border: none;
-    color: #333;
+    display: flex;
+    align-items: center;
+    gap: var(--shop-spacing-xs);
+    padding: var(--shop-spacing-sm) var(--shop-spacing-md);
+    background-color: transparent;
+    border: 1px solid var(--shop-primary);
+    color: var(--shop-primary);
+    border-radius: var(--shop-radius-md);
+    font-size: var(--shop-font-size-md);
+    font-weight: var(--shop-font-weight-medium);
     cursor: pointer;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.2s ease;
 }
 
 .nav-button:hover {
-    color: #007bff;
-}
-
-.nav-button.active {
-    color: #007bff;
-    font-weight: bold;
+    background-color: var(--shop-primary);
+    color: var(--shop-white);
 }
 
 .main {
     flex: 1;
-    padding: 24px 16px;
-    background-color: #f5f5f5;
+    padding: var(--shop-spacing-lg);
+    background-color: var(--shop-background);
 }
 
 .main-container {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 24px;
+    background-color: var(--shop-white);
+    border-radius: var(--shop-radius-lg);
+    box-shadow: var(--shop-shadow-md);
+    padding: var(--shop-spacing-xl);
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        padding: var(--shop-spacing-sm);
+    }
+
+    .nav-left, .nav-right {
+        gap: var(--shop-spacing-sm);
+    }
+
+    .nav a {
+        padding: var(--shop-spacing-xs) var(--shop-spacing-sm);
+        font-size: var(--shop-font-size-sm);
+    }
+
+    .nav-button {
+        padding: var(--shop-spacing-xs) var(--shop-spacing-sm);
+        font-size: var(--shop-font-size-sm);
+    }
+
+    .logo {
+        font-size: var(--shop-font-size-lg);
+    }
+
+    .logo svg {
+        width: 24px;
+        height: 24px;
+    }
 }

@@ -4,13 +4,13 @@
 
 .cart-header {
   position: relative;
-  margin-bottom: var(--x5-spacing-lg);
+  margin-bottom: var(--shop-spacing-lg);
 }
 
 .cart-title {
-  color: var(--x5-primary);
+  color: var(--shop-primary);
   font-size: 32px;
-  font-weight: var(--x5-font-weight-bold);
+  font-weight: var(--shop-font-weight-bold);
   text-align: center;
   margin: 0 auto;
   position: relative;
@@ -24,6 +24,6 @@
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background-color: var(--x5-secondary);
-  border-radius: var(--x5-radius-sm);
+  background-color: var(--shop-secondary);
+  border-radius: var(--shop-radius-sm);
 }
