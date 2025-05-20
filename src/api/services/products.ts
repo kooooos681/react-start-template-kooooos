@@ -7,16 +7,18 @@ import { ApiError } from '../auth';
 export interface Product {
   id: string;
   name: string;
-  description?: string;
+  description: string;
   price: number;
-  photo?: string;
+  image: string;
   categoryId: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ProductFilters extends BaseFilters {
   categoryIds?: string[];
+  offset?: number;
+  limit?: number;
 }
 
 export type ProductsResponse = BaseResponse<Product>;

@@ -1,61 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BasketList from '../components/BasketList/BasketList';
-import { useOrders } from '../hooks/useOrders';
+import { useCart } from '../hooks/useCart';
 import '../styles/BasketPage.css';
 
 export const BasketPage: React.FC = () => {
-  const [basket, setBasket] = useState<Array<{ productId: string; quantity: number }>>([]);
   const navigate = useNavigate();
-  const { createOrder, loading, error } = useOrders();
+  const { cartItems, loading, error } = useCart();
 
-  const handleRemove = (id: string) => {
-    setBasket(basket.filter(item => item.productId !== id));
-  };
-
-  const handleIncrement = (id: string) => {
-    setBasket(basket.map(item => 
-      item.productId === id ? { ...item, quantity: item.quantity + 1 } : item
-    ));
-  };
-
-  const handleDecrement = (id: string) => {
-    setBasket(basket.map(item => 
-      item.productId === id ? { ...item, quantity: Math.max(0, item.quantity - 1) } : item
-    ));
-  };
+  // TODO: реализовать удаление/изменение количества через GraphQL
 
   const handleCheckout = async () => {
-    try {
-      const orderInput = {
-        products: basket.map(item => ({
-          id: item.productId,
-          quantity: item.quantity,
-        })),
-      };
-      await createOrder(orderInput);
-      setBasket([]);
-      navigate('/orders');
-    } catch (error) {
-      console.error('Error creating order:', error);
-    }
+    // TODO: оформить заказ через GraphQL, если требуется
+    navigate('/orders');
   };
 
-  const total = basket.reduce((sum, item) => sum + item.quantity, 0);
+  const total = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <div className="basket-page">
       <h1>Корзина</h1>
-      {error && <div className="error">{error}</div>}
+      {error && <div className="error">{error.message}</div>}
       <BasketList 
-        products={basket.map(item => ({
-          id: item.productId,
-          title: 'Product', // TODO: Get product title from API
-          price: 0, // TODO: Get product price from API
+        products={cartItems.map(item => ({
+          id: item.product.id,
+          title: item.product.name,
+          price: 0, // TODO: добавить цену, если есть в product
           count: item.quantity,
-          onRemove: handleRemove,
-          onIncrement: handleIncrement,
-          onDecrement: handleDecrement,
+          onRemove: () => {}, // TODO: реализовать удаление
+          onIncrement: () => {}, // TODO: реализовать увеличение
+          onDecrement: () => {}, // TODO: реализовать уменьшение
         }))}
       />
       <div className="basket-total">
@@ -63,7 +37,7 @@ export const BasketPage: React.FC = () => {
         <button 
           className="button button-primary" 
           onClick={handleCheckout}
-          disabled={loading || basket.length === 0}
+          disabled={loading || cartItems.length === 0}
         >
           {loading ? 'Оформление...' : 'Оформить заказ'}
         </button>

@@ -46,10 +46,6 @@ export class ApiError extends Error {
   }
 }
 
-export interface RegisterResponse {
-  token: string;
-}
-
 export interface LoginResponse {
   token: string;
 }
@@ -63,75 +59,6 @@ const saveToken = (token: string) => {
 const clearToken = () => {
   localStorage.removeItem('token');
   delete axios.defaults.headers.common['Authorization'];
-};
-
-export const register = async (email: string, password: string): Promise<RegisterResponse> => {
-  try {
-    const url = `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.REGISTER}`;
-    console.log('Full registration URL:', url);
-    console.log('Request payload:', { email, password });
-    
-    const response = await axios.post<RegisterResponse>(url, {
-      email,
-      password,
-    }, {
-      timeout: 5000,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    });
-    
-    console.log('Registration response:', response.data);
-    saveToken(response.data.token);
-    return response.data;
-  } catch (error) {
-    console.error('Registration API error:', error);
-    if (error instanceof AxiosError) {
-      const status = error.response?.status;
-      const data = error.response?.data as ServerErrors;
-      const message = error.message;
-
-      console.error('Axios error details:', {
-        status,
-        data,
-        message,
-        code: error.code,
-        config: error.config,
-        url: error.config?.url,
-        baseURL: error.config?.baseURL,
-      });
-
-      if (error.code === 'ECONNABORTED') {
-        throw new ApiError('Превышено время ожидания ответа от сервера');
-      }
-
-      if (data?.errors?.[0]) {
-        const serverError = data.errors[0];
-        throw new ApiError(
-          serverError.message,
-          status,
-          data,
-          serverError.extensions.code,
-          serverError.fieldName
-        );
-      }
-
-      switch (status) {
-        case 400:
-          throw new ApiError('Неверные данные для регистрации', status, data);
-        case 409:
-          throw new ApiError('Пользователь с таким email уже существует', status, data);
-        case 500:
-          throw new ApiError('Внутренняя ошибка сервера', status, data);
-        case 504:
-          throw new ApiError('Сервер не отвечает', status, data);
-        default:
-          throw new ApiError(`Произошла ошибка при регистрации: ${message}`, status, data);
-      }
-    }
-    throw new ApiError('Произошла неизвестная ошибка');
-  }
 };
 
 export const login = async (email: string, password: string): Promise<LoginResponse> => {

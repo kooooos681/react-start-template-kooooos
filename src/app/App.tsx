@@ -7,8 +7,7 @@ import ProfilePage from '../pages/ProfilePage';
 import ProductsPage from '../pages/ProductsPage';
 import BasketPage from '../pages/BasketPage';
 import ModalPage from '../pages/ModalPage';
-import RegisterPageThunk from '../pages/RegisterPageThunk';
-import RegisterPageRTK from '../pages/RegisterPageRTK';
+import RegisterPage from '../pages/RegisterPage';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import ErrorBoundary from '../components/ErrorBoundary';
 import './App.css';
@@ -63,10 +62,7 @@ export const App: React.FC = () => {
                     Войти
                   </Link>
                   <Link to="/register" className={isActive('/register')}>
-                    Регистрация (Saga)
-                  </Link>
-                  <Link to="/register-rtk" className={isActive('/register-rtk')}>
-                    Регистрация (RTK)
+                    Регистрация
                   </Link>
                 </>
               )}
@@ -78,8 +74,7 @@ export const App: React.FC = () => {
           <div className="main-container">
             <Routes>
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPageThunk />} />
-              <Route path="/register-rtk" element={<RegisterPageRTK />} />
+              <Route path="/register" element={<RegisterPage />} />
               <Route
                 path="/profile"
                 element={

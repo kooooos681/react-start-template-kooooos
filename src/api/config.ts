@@ -3,7 +3,6 @@ export const API_CONFIG = {
   ENDPOINTS: {
     AUTH: {
       LOGIN: '/auth/login',
-      REGISTER: '/auth/signup',
       LOGOUT: '/auth/logout',
     },
     PRODUCTS: {

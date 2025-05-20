@@ -2,24 +2,47 @@ import { Product } from '../types/product';
 
 export const products: Product[] = [
   {
-    id: 1,
-    title: 'Product 1',
-    description: 'Description for product 1',
+    id: '1',
+    name: 'Product 1',
+    desc: 'Description for product 1',
     price: 1000,
-    image: 'https://via.placeholder.com/150'
+    oldPrice: 1200,
+    photo: 'https://via.placeholder.com/150',
+    category: {
+      id: '1',
+      name: 'Category 1',
+      photo: 'https://via.placeholder.com/150'
+    },
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
-    id: 2,
-    title: 'Product 2',
-    description: 'Description for product 2',
+    id: '2',
+    name: 'Product 2',
+    desc: 'Description for product 2',
     price: 2000,
-    image: 'https://via.placeholder.com/150'
+    photo: 'https://via.placeholder.com/150',
+    category: {
+      id: '1',
+      name: 'Category 1',
+      photo: 'https://via.placeholder.com/150'
+    },
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
-    id: 3,
-    title: 'Product 3',
-    description: 'Description for product 3',
+    id: '3',
+    name: 'Product 3',
+    desc: 'Description for product 3',
     price: 3000,
-    image: 'https://via.placeholder.com/150'
-  }
+    oldPrice: 3500,
+    photo: 'https://via.placeholder.com/150',
+    category: {
+      id: '2',
+      name: 'Category 2',
+      photo: 'https://via.placeholder.com/150'
+    },
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
 ]; 

@@ -1,37 +1,57 @@
 import { gql } from '@apollo/client';
 
 export const GET_ORDERS_QUERY = gql`
-  query GetOrders {
+  query GetOrders($input: OrderGetManyInput!) {
     orders {
-      id
-      products {
-        id
-        name
-        price
-        image
-        quantity
+      getMany(input: $input) {
+        data {
+          id
+          products {
+            _id
+            quantity
+            product {
+              id
+              name
+            }
+          }
+        }
       }
-      status
-      total
-      createdAt
     }
   }
 `;
 
 export const CREATE_ORDER_MUTATION = gql`
-  mutation CreateOrder($input: CreateOrderInput!) {
-    createOrder(input: $input) {
-      id
-      products {
+  mutation AddOrder($input: OrderAddInput!) {
+    orders {
+      add(input: $input) {
         id
-        name
-        price
-        image
-        quantity
+        products {
+          _id
+          quantity
+          product {
+            id
+            name
+          }
+        }
       }
-      status
-      total
-      createdAt
+    }
+  }
+`;
+
+export const REMOVE_ORDER_MUTATION = gql`
+  mutation RemoveOrder($id: ID!) {
+    orders {
+      remove(id: $id) {
+        id
+        products {
+          _id
+          quantity
+          product {
+            id
+            name
+          }
+        }
+      }
     }
   }
 `;

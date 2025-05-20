@@ -1,176 +1,190 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   GET_PRODUCTS_QUERY,
   GET_PRODUCT_QUERY,
   CREATE_PRODUCT_MUTATION,
   UPDATE_PRODUCT_MUTATION,
   DELETE_PRODUCT_MUTATION,
+  GET_CATEGORIES_QUERY,
 } from '../api/graphql/products';
-import { Item } from '../components/ItemList/ItemList';
-import { productsService } from '../api/services/products';
+import { Product, Category, CreateProductInput, UpdateProductInput } from '../types/product';
 
-export interface CreateProductInput {
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  categoryId: string;
+interface ProductsData {
+  products: {
+    getMany: {
+      data: Array<{
+        id: string;
+        name: string;
+        photo: string;
+        desc: string;
+        price: number;
+        category: {
+          id: string;
+          name: string;
+        };
+      }>;
+      pagination: {
+        pageSize: number;
+        pageNumber: number;
+        total: number;
+      };
+      sorting: {
+        type: string;
+        field: string;
+      };
+    };
+  };
 }
 
-export interface UpdateProductInput {
-  name?: string;
-  description?: string;
-  price?: number;
-  image?: string;
-  categoryId?: string;
+interface ProductData {
+  product: Product;
 }
 
-export const useProducts = (limit = 10, useGraphQL = true) => {
-  const [offset, setOffset] = useState(0);
+interface CategoriesData {
+  categories: Category[];
+}
+
+export const useProducts = () => {
   const [error, setError] = useState<string | null>(null);
-  const [restProducts, setRestProducts] = useState<Item[]>([]);
-  const [restLoading, setRestLoading] = useState(false);
 
-  const {
-    data: productsData,
-    loading: productsLoading,
-    fetchMore,
-  } = useQuery(GET_PRODUCTS_QUERY, {
-    skip: !useGraphQL,
-  });
-
-  const [createProduct] = useMutation(CREATE_PRODUCT_MUTATION);
-  const [updateProduct] = useMutation(UPDATE_PRODUCT_MUTATION);
-  const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
-
-  const loadRestProducts = async () => {
-    if (useGraphQL) return;
-    
-    try {
-      setRestLoading(true);
-      const response = await productsService.getProducts({
-        pagination: {
-          pageSize: limit,
-          pageNumber: Math.floor(offset / limit) + 1,
-        },
-      });
-      
-      if (!response.data || !Array.isArray(response.data)) {
-        console.error('Invalid response format:', response);
-        throw new Error('Неверный формат ответа от сервера');
-      }
-      
-      const items: Item[] = response.data.map((product) => ({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        description: product.description || '',
-        image: product.photo || '',
-        category: product.categoryId,
-      }));
-      
-      setRestProducts(items);
-    } catch (error) {
-      console.error('Error loading products:', error);
-      setError(error instanceof Error ? error.message : 'Ошибка загрузки товаров');
-    } finally {
-      setRestLoading(false);
-    }
+  const token = localStorage.getItem('token');
+  console.log('GRAPHQL TOKEN', token);
+  const variables = {
+    input: {
+      pagination: {
+        pageSize: 10,
+        pageNumber: 1,
+      },
+      sorting: {
+        type: 'ASC',
+        field: 'createdAt',
+      },
+    },
   };
 
-  const loadMore = async () => {
-    if (useGraphQL) {
-      try {
-        const newOffset = offset + limit;
-        await fetchMore({
-          variables: { offset: newOffset, limit },
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
-            return {
-              products: [...prev.products, ...fetchMoreResult.products],
-            };
+  console.log('PRODUCTS QUERY VARIABLES', JSON.stringify(variables, null, 2));
+  const handleError = (error: any) => {
+    console.error('GraphQL error:', error);
+    if (error?.networkError?.result) {
+      console.error('GraphQL network error result:', JSON.stringify(error.networkError.result, null, 2));
+    }
+    const msg = error.message || '';
+    setError('Ошибка загрузки товаров: ' + msg);
+  };
+
+  const { data, loading, fetchMore } = useQuery<ProductsData>(GET_PRODUCTS_QUERY, {
+    variables,
+    onError: handleError,
+    fetchPolicy: 'network-only',
+  });
+
+  if (Array.isArray(data?.products?.getMany?.data)) {
+    console.log('PRODUCTS DATA LENGTH:', data.products.getMany.data.length);
+    if (data.products.getMany.data.length > 0) {
+      console.log('PRODUCTS DATA EXAMPLE:', data.products.getMany.data[0]);
+    }
+  } else {
+    console.log('PRODUCTS DATA is undefined or not an array:', data?.products?.getMany?.data);
+  }
+
+  const { data: categoriesData, loading: categoriesLoading } = useQuery<CategoriesData>(GET_CATEGORIES_QUERY, {
+    onError: handleError,
+  });
+
+  const [createProduct] = useMutation<{ createProduct: Product }, { input: CreateProductInput }>(
+    CREATE_PRODUCT_MUTATION,
+    {
+      onError: handleError,
+    }
+  );
+
+  const [updateProduct] = useMutation<{ updateProduct: Product }, { id: string; input: UpdateProductInput }>(
+    UPDATE_PRODUCT_MUTATION,
+    {
+      onError: handleError,
+    }
+  );
+
+  const [deleteProduct] = useMutation<{ deleteProduct: boolean }, { id: string }>(DELETE_PRODUCT_MUTATION, {
+    onError: handleError,
+  });
+
+  const loadMore = () => {
+    if (!data?.products.getMany.pagination) return;
+
+    const { pageSize, pageNumber, total } = data.products.getMany.pagination;
+    const hasMore = pageSize * pageNumber < total;
+
+    if (hasMore) {
+      fetchMore({
+        variables: {
+          input: {
+            pagination: {
+              pageSize,
+              pageNumber: pageNumber + 1,
+            },
+            sorting: {
+              type: 'ASC',
+              field: 'createdAt',
+            },
           },
-        });
-        setOffset(newOffset);
-      } catch (error) {
-        setError(error instanceof Error ? error.message : 'Ошибка загрузки товаров');
-      }
-    } else {
-      setOffset((prev) => prev + limit);
-      await loadRestProducts();
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev;
+          return {
+            products: {
+              getMany: {
+                ...fetchMoreResult.products.getMany,
+                data: [
+                  ...prev.products.getMany.data,
+                  ...fetchMoreResult.products.getMany.data,
+                ],
+              },
+            },
+          };
+        },
+      });
     }
   };
 
   const handleCreateProduct = async (input: CreateProductInput) => {
     try {
-      setError(null);
-      if (useGraphQL) {
-        const { data } = await createProduct({
-          variables: { input },
-          refetchQueries: [{ query: GET_PRODUCTS_QUERY, variables: { offset: 0, limit } }],
-        });
-        return data.createProduct;
-      } else {
-        const product = await productsService.createProduct(input);
-        await loadRestProducts();
-        return product;
-      }
+      const { data } = await createProduct({ variables: { input } });
+      return data?.createProduct;
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Ошибка создания товара');
       throw error;
     }
   };
 
   const handleUpdateProduct = async (id: string, input: UpdateProductInput) => {
     try {
-      setError(null);
-      if (useGraphQL) {
-        const { data } = await updateProduct({
-          variables: { id, input },
-          refetchQueries: [{ query: GET_PRODUCTS_QUERY, variables: { offset: 0, limit } }],
-        });
-        return data.updateProduct;
-      } else {
-        const product = await productsService.updateProduct(id, input);
-        await loadRestProducts();
-        return product;
-      }
+      const { data } = await updateProduct({ variables: { id, input } });
+      return data?.updateProduct;
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Ошибка обновления товара');
       throw error;
     }
   };
 
   const handleDeleteProduct = async (id: string) => {
     try {
-      setError(null);
-      if (useGraphQL) {
-        await deleteProduct({
-          variables: { id },
-          refetchQueries: [{ query: GET_PRODUCTS_QUERY, variables: { offset: 0, limit } }],
-        });
-      } else {
-        await productsService.deleteProduct(id);
-        await loadRestProducts();
-      }
+      const { data } = await deleteProduct({ variables: { id } });
+      return data?.deleteProduct;
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Ошибка удаления товара');
       throw error;
     }
   };
 
-  useEffect(() => {
-    if (!useGraphQL) {
-      loadRestProducts();
-    }
-  }, [useGraphQL]);
-
   return {
-    products: useGraphQL ? productsData?.products || [] : restProducts,
-    loading: useGraphQL ? productsLoading : restLoading,
+    products: Array.isArray(data?.products?.getMany?.data) ? data.products.getMany.data : [],
+    categories: categoriesData?.categories || [],
+    loading: loading || categoriesLoading,
     error,
     loadMore,
+    hasMore: data?.products?.getMany?.pagination
+      ? data.products.getMany.pagination.pageSize * data.products.getMany.pagination.pageNumber <
+        data.products.getMany.pagination.total
+      : false,
     createProduct: handleCreateProduct,
     updateProduct: handleUpdateProduct,
     deleteProduct: handleDeleteProduct,
