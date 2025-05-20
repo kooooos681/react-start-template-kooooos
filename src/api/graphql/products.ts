@@ -1,11 +1,30 @@
 import { gql } from '@apollo/client';
 
 export const GET_PRODUCTS_QUERY = gql`
-  query GetProducts {
+  query GetProducts($input: ProductGetManyInput!) {
     products {
-      id
-      name
-      price
+      getMany(input: $input) {
+        data {
+          id
+          name
+          photo
+          desc
+          price
+          category {
+            id
+            name
+          }
+        }
+        pagination {
+          pageSize
+          pageNumber
+          total
+        }
+        sorting {
+          type
+          field
+        }
+      }
     }
   }
 `;
@@ -15,7 +34,17 @@ export const GET_PRODUCT_QUERY = gql`
     product(id: $id) {
       id
       name
+      photo
+      desc
       price
+      oldPrice
+      category {
+        id
+        name
+        photo
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -25,7 +54,17 @@ export const CREATE_PRODUCT_MUTATION = gql`
     createProduct(input: $input) {
       id
       name
+      photo
+      desc
       price
+      oldPrice
+      category {
+        id
+        name
+        photo
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -35,7 +74,17 @@ export const UPDATE_PRODUCT_MUTATION = gql`
     updateProduct(id: $id, input: $input) {
       id
       name
+      photo
+      desc
       price
+      oldPrice
+      category {
+        id
+        name
+        photo
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -43,5 +92,21 @@ export const UPDATE_PRODUCT_MUTATION = gql`
 export const DELETE_PRODUCT_MUTATION = gql`
   mutation DeleteProduct($id: ID!) {
     deleteProduct(id: $id)
+  }
+`;
+
+export const GET_CATEGORIES_QUERY = gql`
+  query GetCategories {
+    categories {
+      getMany {
+        data {
+          id
+          name
+          photo
+          createdAt
+          updatedAt
+        }
+      }
+    }
   }
 `; 
